@@ -1,6 +1,5 @@
 exports.index = (req, res) ->
     res.render 'index', {
-        title: 'sysm',
-        content: 'welcome to system management'
+        title: 'System backyard',
+        dconfs: ["one", "two", "three"]
     }
-
