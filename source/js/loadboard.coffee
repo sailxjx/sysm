@@ -1,0 +1,4 @@
+loadBoard = () ->
+    alert "helloworld"
+
+loadBoard()
