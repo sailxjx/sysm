@@ -1,13 +1,13 @@
 fs = require 'fs'
 
-module.exports = class func
-    @loadCtl: (ctl, req, res) ->
-
-    @reqFile: (file)->
-        st = false
+module.exports = 
+class func
+    @loadCtrl: (ctrl, req, res) ->
+        file = APP_PATH + '/controllers/' + ctrl + '.coffee'
         fs.exists file, (es)->
-            st = es
-
-    @reqCtl: (ctl)->
-        file = APP_PATH + '/controllers/' + ctl + '.coffee'
-        this.reqFile file
+            if es
+                oCtrl = require file
+                eCtrl = new oCtrl req, res
+                eCtrl.render()
+            else
+                throw "error: called controller [ #{file} ] not found! "

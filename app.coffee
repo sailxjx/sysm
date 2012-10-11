@@ -6,13 +6,6 @@ express = require 'express'
 routes = require APP_PATH + '/lib/routes'
 http = require 'http'
 path = require 'path'
-fs = require 'fs'
-
-func = require APP_PATH + '/lib/func'
-
-console.log func.reqFile '/home/tristan/coding/sysm/app.coffee'
-
-# process.exit()
 
 app = express()
 
@@ -34,9 +27,10 @@ appRouter = (app) ->
     app.get '/board/:name', routes.board
 
 appStart = (app) ->
-    http.createServer(app).listen app.get('port'), ()->
+    server = http.createServer(app)
+    server.listen app.get('port'), ()->
         console.log "listening on port " + app.get 'port'
 
 init app
 appRouter app
-# appStart app
+appStart app
