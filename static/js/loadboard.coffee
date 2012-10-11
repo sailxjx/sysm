@@ -1,4 +1,4 @@
 loadBoard = () ->
-    alert "helloworld"
+    console.log 'get board'
 
 loadBoard()

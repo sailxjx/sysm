@@ -3,7 +3,7 @@
   var loadBoard;
 
   loadBoard = function() {
-    return alert("helloworld");
+    return console.log('get board');
   };
 
   loadBoard();
