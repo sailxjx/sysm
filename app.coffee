@@ -1,9 +1,8 @@
 #!/usr/local/env coffee
 
 global.APP_PATH = __dirname
-
 express = require 'express'
-routes = require APP_PATH + '/lib/routes'
+routes = require "#{APP_PATH}/lib/routes"
 http = require 'http'
 path = require 'path'
 

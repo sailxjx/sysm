@@ -1,6 +1,10 @@
+func = require './func'
+redis = require 'redis'
+
 module.exports = 
-class Db
+class db
     @loadRedis: ->
         if @oRedis == undefined
-            @oRedis = require('redis').createClient 6379, '127.0.0.1'
+            rConf = func.getConf 'redis'
+            @oRedis = redis.createClient rConf.port, rConf.host
         @oRedis

@@ -1,19 +1,34 @@
-controller = require './controller'
+controller = require "./controller"
 fs = require 'fs'
+db = require "#{APP_PATH}/lib/db"
+sc = {} # board controllers
 
 module.exports = 
 class board extends controller
     render: () ->
-        boardName = this.req.params.name
-        this.loadBoard boardName
-    loadBoard: (boardName)->
-        file = this.getBoardFile boardName
-        req = this.req
-        res = this.res
+        this.boardName = this.req.params.name
+        if sc[this.boardName]
+            subCtrl = new sc[this.boardName]
+            subCtrl.render this, this.loadBoard
+        else
+            this.loadBoard()
+    loadBoard: ()->
+        file = this.getBoardPath()
+        self = this
         fs.exists file, (es)->
             if es
-                res.render file
+                self.res.render file, self.data
             else
-                res.send "error: called boardName [ #{file} ] not found! "
-    getBoardFile: (boardName) ->
-        return APP_PATH + "/views/board/#{boardName}.jade"
+                self.res.send "sorry: called board [ #{file} ] not found"
+    getBoardPath: ()->
+        "#{APP_PATH}/views/board/#{this.boardName}.jade"
+
+class sc.configs
+    render: (board)->
+        redis = db.loadRedis()
+        args = ['notice:mail:table:6', 'content']
+        redis.hget args, (err, data)->
+            board.data = {
+                mailcontent: data
+            }
+            board.loadBoard()

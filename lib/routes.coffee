@@ -1,4 +1,4 @@
-func = require APP_PATH + '/lib/func'
+func = require "#{APP_PATH}/lib/func"
 
 exports.index = (req, res) ->
     func.loadCtrl 'index', req, res
