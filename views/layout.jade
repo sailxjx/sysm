@@ -4,13 +4,9 @@ html(lang="en")
     title #{title}
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css", rel="stylesheet")
-    style
-        body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
     link(href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css", rel="stylesheet")
+    link(href="http://sysm.local.com/css/base.css", rel="stylesheet")
   body
-    include navbar
     block content
     script(src='http://code.jquery.com/jquery-1.8.2.min.js')
     script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js')

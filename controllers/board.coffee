@@ -9,7 +9,7 @@ class board extends controller
         this.boardName = this.req.params.name
         if sc[this.boardName]
             subCtrl = new sc[this.boardName]
-            subCtrl.render this, this.loadBoard
+            subCtrl.render this
         else
             this.loadBoard()
     loadBoard: ()->
@@ -29,6 +29,7 @@ class sc.configs
         args = ['notice:mail:table:6', 'content']
         redis.hget args, (err, data)->
             board.data = {
-                mailcontent: data
+                mailContent: data,
+                boardTitle: 'Mail Content'
             }
             board.loadBoard()
