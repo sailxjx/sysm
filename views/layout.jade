@@ -3,11 +3,11 @@ html(lang="en")
   head
     title #{title}
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css", rel="stylesheet")
-    link(href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css", rel="stylesheet")
-    link(href="http://sysm.local.com/css/base.css", rel="stylesheet")
+    link(href="#{basedomain}/css/lib/bootstrap.css", rel="stylesheet")
+    link(href="#{basedomain}/css/lib/bootstrap-responsive.css", rel="stylesheet")
+    link(href="#{basedomain}/css/base.css", rel="stylesheet")
   body
     block content
-    script(src='http://code.jquery.com/jquery-1.8.2.min.js')
-    script(src='http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js')
+    script(src='#{basedomain}/js/lib/jquery-1.8.2.min.js')
+    script(src='#{basedomain}/js/lib/bootstrap-collapse.js')
     block script

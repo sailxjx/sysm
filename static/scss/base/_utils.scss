@@ -1,0 +1,17 @@
+@mixin center($w, $h) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: $w/(-2);
+    margin-top: $h/(-2);
+    width: $w;
+    height: $h;
+}
+@mixin shadow() {
+    box-shadow: 0 0 15px $c_dgray;
+}
+@mixin transition() {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+}
