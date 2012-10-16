@@ -8,10 +8,20 @@
     height: $h;
 }
 @mixin shadow() {
-    box-shadow: 0 0 15px $c_dgray;
+    box-shadow: 0 0 15px 5px $c_dgray;
+    -webkit-box-shadow: 0 0 15px 5px $c_dgray;
+    -moz-box-shadow: 0 0 15px 5px $c_dgray;
+    -o-box-shadow: 0 0 15px 5px $c_dgray;
+}
+@mixin rise($ori_padding: 10px, $ori_margin: 0px) {
+    padding: $ori_padding + 3px;
+    margin: 0 $ori_margin - 6px $ori_margin - 6px 0;
+    left: -3px;
+    top: -3px;
+    z-index: 1;
 }
 @mixin transition() {
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    -o-transition: all 0.2s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
 }

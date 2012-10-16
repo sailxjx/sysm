@@ -3,9 +3,9 @@ body {
 }
 
 .board {
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -o-transition: all 0.2s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
   border: 1px dashed #cccccc;
   padding: 10px;
   background: white;
@@ -13,34 +13,30 @@ body {
   float: left;
   position: relative;
 }
-.board:hover {
-  box-shadow: 0 0 15px #666666;
-}
 
 .board-large {
   width: 1178px;
   height: 578px;
-}
-.board-large:hover {
-  width: 1200px;
-  height: 600px;
 }
 
 .board-medium {
   width: 578px;
   height: 278px;
 }
-.board-medium:hover {
-  width: 600px;
-  height: 300px;
-}
 
 .board-small {
   width: 278px;
   height: 128px;
 }
-.board-small:hover {
-  position: absolute;
-  width: 300px;
-  height: 150px;
+
+.board-hover {
+  box-shadow: 0 0 15px 5px #666666;
+  -webkit-box-shadow: 0 0 15px 5px #666666;
+  -moz-box-shadow: 0 0 15px 5px #666666;
+  -o-box-shadow: 0 0 15px 5px #666666;
+  padding: 13px;
+  margin: 0 -6px -6px 0;
+  left: -3px;
+  top: -3px;
+  z-index: 1;
 }
