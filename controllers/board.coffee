@@ -1,7 +1,7 @@
 controller = require "./controller"
 fs = require 'fs'
 db = require "#{APP_PATH}/lib/db"
-sc = {} # board controllers
+sc = {} # sub controllers
 
 module.exports = 
 class board extends controller
@@ -33,3 +33,7 @@ class sc.configs
                 boardTitle: 'Mail Content'
             }
             board.loadBoard()
+
+class sc.jobs
+    render: (board)->
+        

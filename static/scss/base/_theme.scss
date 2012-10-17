@@ -9,6 +9,7 @@ body {
     overflow: hidden;
     float: left;
     position: relative;
+    cursor: pointer;
 }
 .board-large {
     width: 1178px;
@@ -25,4 +26,19 @@ body {
 .board-hover {
     @include shadow;
     @include rise;
+}
+.popback {
+    position: fixed;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: none;
+}
+.popen {
+    @include transition(0.7s);
+    @include center(0, 100%);
+    @include shadow;
+    display: none;
+    background: $c_white;
 }

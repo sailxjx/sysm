@@ -1,7 +1,7 @@
 extends layout
 block content
     section.board.board-large(board="configs")
-    section.board.board-medium(board="configs")
+    section.board.board-medium(board="configs", target-url="#{basedomain}/board/jobs")
     section.board.board-small(board="configs")
     section.board.board-small(board="configs")
     section.board.board-small(board="configs")
@@ -10,5 +10,7 @@ block content
     section.board.board-small(board="configs")
     section.board.board-small(board="configs")
     section.board.board-medium(board="configs")
+    section#popback.popback
+        section#popen.popen This is a popen
 block script
     script(src='/js/loadboard.js')
