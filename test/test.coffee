@@ -1,2 +1,4 @@
-while 1
-    console.log 'a'
+jstring = {
+    "name":"json"
+}
+console.log JSON.stringify(jstring)

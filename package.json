@@ -9,6 +9,7 @@
         "redis": "*",
         "hiredis": "*",
         "coffee-script": "1.3.x",
-        "jade": "*"
+        "jade": "*",
+        "zmq": "*"
     }
 }

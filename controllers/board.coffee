@@ -1,6 +1,7 @@
 controller = require "./controller"
 fs = require 'fs'
 db = require "#{APP_PATH}/lib/db"
+reqmq = require "#{APP_PATH}/lib/reqmq" # mq fac to get messages from daemon process
 sc = {} # sub controllers
 
 module.exports = 
@@ -25,15 +26,24 @@ class board extends controller
 
 class sc.configs
     render: (board)->
-        redis = db.loadRedis()
-        args = ['notice:mail:table:6', 'content']
-        redis.hget args, (err, data)->
-            board.data = {
-                mailContent: data,
-                boardTitle: 'Mail Content'
-            }
+        sock = reqmq.getSock()
+        sock.on 'message', (reply)->
+            reply = reply.toString()
+            board.data = 
+                configs: reply
+            sock.close()
             board.loadBoard()
+        func = 'getConfigs'
+        params = {}
+        sock.send reqmq.msgFormat func, params
 
 class sc.jobs
     render: (board)->
-        
+        sock = reqmq.getSock()
+        sock.on 'message', (reply)->
+            reply = reply.toString()
+            board.data = 
+                msgcontent: reply
+            sock.close()
+            board.loadBoard()
+        sock.send 'request'

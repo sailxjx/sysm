@@ -68,6 +68,8 @@ body {
   -webkit-box-shadow: 0 0 15px 5px #666666;
   -moz-box-shadow: 0 0 15px 5px #666666;
   -o-box-shadow: 0 0 15px 5px #666666;
+  top: 0;
+  margin-top: 0;
   display: none;
   background: white;
 }
