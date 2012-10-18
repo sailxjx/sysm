@@ -39,6 +39,8 @@ body {
     @include transition(0.7s);
     @include center(0, 100%);
     @include shadow;
+    top: 0;
+    margin-top: 0;
     display: none;
     background: $c_white;
 }

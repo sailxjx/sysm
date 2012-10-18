@@ -1,7 +1,11 @@
 {
+    "port": 3000,
     "redis": {
         "host": "127.0.0.1",
         "port": "6379"
     },
-    "basedomain": "http://sysm.local.com"
+    "basedomain": "http://sysm.local.com",
+    "zmqreq": {
+        "dsn": "tcp://127.0.0.1:5555"
+    }
 }
