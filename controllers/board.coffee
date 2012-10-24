@@ -41,9 +41,11 @@ class sc.jobs
     render: (board)->
         sock = reqmq.getSock()
         sock.on 'message', (reply)->
-            reply = reply.toString()
+            reply = JSON.parse reply.toString()
             board.data = 
                 msgcontent: reply
             sock.close()
             board.loadBoard()
-        sock.send 'request'
+        func = 'getJobs'
+        params = {}
+        sock.send reqmq.msgFormat func, params
