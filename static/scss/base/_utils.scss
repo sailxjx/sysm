@@ -8,11 +8,11 @@
     height: $h;
     z-index: 3;
 }
-@mixin shadow() {
-    box-shadow: 0 0 15px 5px $c_dgray;
-    -webkit-box-shadow: 0 0 15px 5px $c_dgray;
-    -moz-box-shadow: 0 0 15px 5px $c_dgray;
-    -o-box-shadow: 0 0 15px 5px $c_dgray;
+@mixin shadow($h: 0, $v: 0, $blur: 15px, $spread: 0, $color: $c_dgray) {
+    box-shadow: $h $v $blur $spread $color;
+    -webkit-box-shadow: $h $v $blur $spread $color;
+    -moz-box-shadow: $h $v $blur $spread $color;
+    -o-box-shadow: $h $v $blur $spread $color;
 }
 @mixin rise($ori_padding: 10px, $ori_margin: 0px) {
     padding: $ori_padding + 3px;
@@ -26,4 +26,13 @@
     -webkit-transition: all $sec;
     -moz-transition: all $sec;
     -o-transition: all $sec;
+}
+@mixin gradient($from: #FAFAFA, $to: #EAEAEA){
+    background: $to;
+    background: -webkit-linear-gradient(top, $from 0%, $to 100%); /* Chrome10+,Safari5.1+ */
+    background: -moz-linear-gradient(top, $from 0%, $to 100%); /* FF3.6+ */
+    background: -o-linear-gradient(top, $from 0%, $to 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, $from 0%, $to 100%); /* IE10+ */
+    background: linear-gradient(to bottom, $from 0%, $to 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$from, endColorstr=$to ,GradientType=0 ); /* IE6-8 */
 }

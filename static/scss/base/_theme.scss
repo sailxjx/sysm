@@ -1,31 +1,56 @@
 body {
+    padding-top: 60px;
     background: $c_background
+}
+.navbar {
+    @include gradient(#FAFAFA, #EAEAEA);
+    border-bottom: 1px solid #CACACA;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4),0 0px 10px rgba(0, 0, 0, 0.1);
+    height: 60px;
+    line-height: 40px;
+}
+.container {
+    .brand {
+        &:hover {
+        color: $c_lblue;
+        };
+    }
 }
 .board {
     @include transition;
-    border: 1px dashed $c_lgray;
-    padding: 10px;
     background: $c_white;
     overflow: hidden;
     float: left;
-    position: relative;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 3px;    
     cursor: pointer;
-}
-.board-large {
-    width: 1178px;
-    height: 578px;
-}
-.board-medium {
-    width: 578px;
-    height: 278px;
-}
-.board-small {
-    width: 278px;
-    height: 128px;
+    margin: 5px;
+    .title{
+        @include gradient(#FAFAFA, #EAEAEA);
+        padding: 10px;
+        border-bottom: 1px solid #CACACA;
+        box-shadow: 0 0 15px #c_lgray;
+    }
+    .bcon {
+        margin: 5px;        
+    }
 }
 .board-hover {
     @include shadow;
-    @include rise;
+        // @include rise(10px, 5px);
+}
+.board-large {
+    width: 1158px;
+    height: 578px;
+}
+.board-medium {
+    width: 574px;
+    height: 278px;
+}
+.board-small {
+    width: 282px;
+    height: 128px;
 }
 .popback {
     position: fixed;
@@ -41,6 +66,7 @@ body {
     @include shadow;
     top: 0;
     margin-top: 0;
+    padding-top: 65px;
     display: none;
     background: $c_white;
 }

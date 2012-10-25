@@ -1,16 +1,13 @@
 extends layout
 block content
-    section.board.board-large(board="configs")
-    section.board.board-medium(board="configs", target-url="#{basedomain}/board/jobs")
-    section.board.board-small(board="configs")
-    section.board.board-small(board="configs")
-    section.board.board-small(board="configs")
-    section.board.board-small(board="configs")
-    section.board.board-medium(board="jobs")
-    section.board.board-small(board="configs")
-    section.board.board-small(board="jobs")
-    section.board.board-medium(board="configs")
-    section#popback.popback
-        section#popen.popen This is a popen
+    div#popback.popback
+        div#popen.popen This is a popen
+    div.container
+        div.board.board-large(board="configs")
+        div.board.board-small(board="mailsummary")
+        div.board.board-small(board="mailsummary")
+        div.board.board-small(board="mailsummary")
+        div.board.board-small(board="mailsummary")
+        div.board.board-medium(board="configs", target-url="#{basedomain}/board/jobs")
 block script
     script(src='/js/loadboard.js')
