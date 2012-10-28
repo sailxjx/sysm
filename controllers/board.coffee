@@ -24,6 +24,7 @@ class board extends controller
     getBoardPath: ()->
         "#{APP_PATH}/views/board/#{this.boardName}.jade"
 
+# get configs
 class sc.configs
     render: (board)->
         sock = reqmq.getSock()
@@ -37,6 +38,7 @@ class sc.configs
         params = {}
         sock.send reqmq.msgFormat func, params
 
+# get job status
 class sc.jobs
     render: (board)->
         sock = reqmq.getSock()
@@ -49,3 +51,13 @@ class sc.jobs
         func = 'getJobs'
         params = {}
         sock.send reqmq.msgFormat func, params
+
+# get job summary
+class sc.jobsum
+    render: (board)->
+        board.loadBoard()
+
+# get mail summary
+class sc.mailsum
+    render: (board)->
+        board.loadBoard()

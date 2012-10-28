@@ -6,7 +6,7 @@ class controller
         this.req = req
         this.res = res
         this.data = {
-            title: 'system backyard',
+            title: 'System Backyard - "SB" for short?',
             basedomain: func.getConf 'basedomain'
         }
     render: (req, res) ->

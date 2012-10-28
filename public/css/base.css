@@ -23,6 +23,9 @@ body {
   line-height: 40px;
 }
 
+.container .brand {
+  text-shadow: none;
+}
 .container .brand:hover {
   color: #4183c4;
 }

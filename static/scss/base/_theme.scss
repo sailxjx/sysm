@@ -11,8 +11,9 @@ body {
 }
 .container {
     .brand {
+        text-shadow: none;
         &:hover {
-        color: $c_lblue;
+          color: $c_lblue;
         };
     }
 }
