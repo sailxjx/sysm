@@ -8,7 +8,7 @@ class reqmq
         oSock = zmq.socket 'req'
         oSock.connect dsn
         oSock
-    @msgFormat: (func, params)->
+    @msgFormat: (func, params = {})->
         data = 
             "func": func,
             "params": params

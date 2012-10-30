@@ -7,8 +7,9 @@ block content
         div.board.board-small(board="mailsum")
         div.board.board-small(board="mailsum")
         div.board.board-small(board="mailsum")
-        div.board.board-small(board="mailsum")
-        div.board.board-medium(board="configs", target-url="#{basedomain}/board/jobs")
-        div.board.board-medium(board="configs", target-url="#{basedomain}/board/jobs")
+        div.board.board-small.bp(board="mailsum", target-url="#{basedomain}/board/jobs")
+        div.board.board-medium.bp(board="jobsum", target-url="#{basedomain}/board/jobs")
+        div.board.board-medium.bp(board="configs", target-url="#{basedomain}/board/jobs")
 block script
+    script(src='/js/util.js')
     script(src='/js/loadboard.js')

@@ -31,12 +31,10 @@ class sc.configs
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
             board.data = 
-                configs: reply
+                configs: reply.data
             sock.close()
             board.loadBoard()
-        func = 'getConfigs'
-        params = {}
-        sock.send reqmq.msgFormat func, params
+        sock.send reqmq.msgFormat 'getConfigs'
 
 # get job status
 class sc.jobs
@@ -45,17 +43,22 @@ class sc.jobs
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
             board.data = 
-                msgcontent: reply
+                msgcontent: reply.data
             sock.close()
             board.loadBoard()
-        func = 'getJobs'
-        params = {}
-        sock.send reqmq.msgFormat func, params
+        sock.send reqmq.msgFormat 'getJobs'
 
 # get job summary
 class sc.jobsum
     render: (board)->
-        board.loadBoard()
+        sock = reqmq.getSock()
+        sock.on 'message', (reply)->
+            reply = JSON.parse reply.toString()
+            board.data = 
+                msg: reply.data
+            sock.close()
+            board.loadBoard()
+        sock.send reqmq.msgFormat 'getJobSum'
 
 # get mail summary
 class sc.mailsum
