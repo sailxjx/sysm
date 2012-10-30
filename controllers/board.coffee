@@ -8,6 +8,7 @@ module.exports =
 class board extends controller
     render: () ->
         this.boardName = this.req.params.name
+        this.data.boardTitle = 'board'
         if sc[this.boardName]
             subCtrl = new sc[this.boardName]
             subCtrl.render this
@@ -30,8 +31,7 @@ class sc.configs
         sock = reqmq.getSock()
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
-            board.data = 
-                configs: reply.data
+            board.data.configs = reply.data
             sock.close()
             board.loadBoard()
         sock.send reqmq.msgFormat 'getConfigs'
@@ -42,8 +42,7 @@ class sc.jobs
         sock = reqmq.getSock()
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
-            board.data = 
-                msgcontent: reply.data
+            board.data.msgContent = reply.data
             sock.close()
             board.loadBoard()
         sock.send reqmq.msgFormat 'getJobs'
@@ -54,8 +53,7 @@ class sc.jobsum
         sock = reqmq.getSock()
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
-            board.data = 
-                msg: reply.data
+            board.data.jobNum = reply.data
             sock.close()
             board.loadBoard()
         sock.send reqmq.msgFormat 'getJobSum'

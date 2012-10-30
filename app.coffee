@@ -25,6 +25,7 @@ init = (app) ->
 appRouter = (app) ->
     app.get '/', routes.index
     app.get '/board/:name', routes.board
+    app.get '/url/(:surl)?', routes.url
 
 appStart = (app) ->
     server = http.createServer(app)

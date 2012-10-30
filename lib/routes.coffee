@@ -8,3 +8,6 @@ exports.http404 = (req, res) ->
 
 exports.board = (req, res) ->
     func.loadCtrl 'board', req, res
+
+exports.url = (req, res)->
+    func.loadCtrl 'url', req, res

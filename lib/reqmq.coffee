@@ -1,6 +1,6 @@
 func = require './func'
 zmq = require 'zmq'
-dsn = func.getConf('zmqreq').dsn
+dsn = func.getConf('zmqReq').dsn
 
 module.exports = 
 class reqmq
