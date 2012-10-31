@@ -7,5 +7,7 @@
     "baseDomain": "http://sysm.local.com",
     "zmqReq": {
         "dsn": "tcp://127.0.0.1:5555"
-    }
+    },
+    "sockPort": 3001,
+    "sockDomain": "http://127.0.0.1:3001"
 }
