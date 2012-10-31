@@ -1,6 +1,13 @@
 extends ../board
 block board
-    ul
-        li sending(10)
-        li wait(10)
-        li succ(10)
+    table.table.table-striped
+        thead
+            tr
+                th Queue
+                th Number
+        tbody
+            - for(var i in mailSum){
+            tr
+                td #{i}
+                td.orange #{mailSum[i]}
+            - }

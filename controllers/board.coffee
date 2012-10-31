@@ -26,24 +26,14 @@ class board extends controller
     getBoardPath: ()->
         "#{APP_PATH}/views/board/#{this.boardName}.jade"
 
-# get configs
-class sc.configs
-    render: (board)->
-        sock = reqmq.getSock()
-        sock.on 'message', (reply)->
-            reply = JSON.parse reply.toString()
-            board.data.configs = reply.data
-            sock.close()
-            board.loadBoard()
-        sock.send reqmq.msgFormat 'getConfigs'
-
 # get job status
 class sc.joblist
     render: (board)->
         sock = reqmq.getSock()
+        sock.send reqmq.msgFormat 'getJobList'
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
-            board.data.jobList = 'Job List'
+            board.data.boardTitle = 'Job List'
             if reply.status == 1
                 jobList = reply.data
                 for i of jobList
@@ -53,21 +43,26 @@ class sc.joblist
                 board.data.jobList = null
             sock.close()
             board.loadBoard()
-        sock.send reqmq.msgFormat 'getJobList'
 
 # get job summary
 class sc.jobsum
     render: (board)->
         sock = reqmq.getSock()
+        sock.send reqmq.msgFormat 'getJobSum'
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
             board.data.jobNum = reply.data
             board.data.boardTitle = 'Job Summary'
             sock.close()
             board.loadBoard()
-        sock.send reqmq.msgFormat 'getJobSum'
 
 # get mail summary
 class sc.mailsum
     render: (board)->
-        board.loadBoard()
+        sock = reqmq.getSock()
+        sock.send reqmq.msgFormat 'getMailSum'
+        sock.on 'message', (reply)->
+            reply = JSON.parse reply.toString()
+            board.data.mailSum = reply.data
+            board.data.boardTitle = 'Mail Summary'
+            board.loadBoard()

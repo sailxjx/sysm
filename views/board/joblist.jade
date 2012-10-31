@@ -3,12 +3,13 @@ block board
     table.table.table-striped
         thead
             tr
-                th id
-                th name
-                th start time
-                th params
-                th options
-                th pid
+                th Id
+                th Name
+                th Start Time
+                th Params
+                th Options
+                th Pid
+                th Control
         tbody
             - for(var i in jobList){
             tr
@@ -18,4 +19,15 @@ block board
                 td #{jobList[i].params}
                 td #{jobList[i].options}
                 td #{jobList[i].pid}
+                td
+                    button.btn.btn-danger stop
             - }
+            tr
+                td
+                - for (var i=0;i<4;i++){
+                td
+                    input(type="text")
+                - }
+                td 
+                td
+                    button.btn.btn-primary add

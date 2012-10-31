@@ -11,5 +11,5 @@ Date.prototype.format = (format)->
             format = format.replace RegExp.$1, o[i]
     format
 
-d = new Date()
+d = new Date(1351652241000)
 console.log d.format('yyyy-MM-dd h:mm:s')

@@ -5,13 +5,8 @@ block content
     div#popback.popback
         div#popen.popen
     div.container
-        div.board.board-large(board="configs")
-        div.board.board-small(board="jobsum")
-        div.board.board-small(board="mailsum")
-        div.board.board-small(board="mailsum")
-        div.board.board-small.bp(board="mailsum", target-url="#{baseDomain}/board/joblist")
-        div.board.board-medium.bp(board="jobsum", target-url="#{baseDomain}/board/joblist")
-        div.board.board-medium.bp(board="configs", target-url="#{baseDomain}/board/joblist")
+        div.board.board-small.bp(board="jobsum", target-url="#{baseDomain}/board/joblist")
+        div.board.board-medium(board="mailsum")
 block script
     script(src='/js/util.js')
     script(src='/js/loadboard.js')

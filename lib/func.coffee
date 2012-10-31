@@ -10,7 +10,8 @@ Date.prototype.format = (format)->
         "s+": this.getSeconds() # get seconds (59)
     for i of od
         if new RegExp("(" + i + ")").test format
-            return format = format.replace RegExp.$1, od[i]
+            format = format.replace RegExp.$1, od[i]
+    format
 
 module.exports = 
 class func
