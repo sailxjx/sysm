@@ -1,5 +1,17 @@
 fs = require 'fs'
 
+Date.prototype.format = (format)->
+    od = 
+        "y+": this.getFullYear() # get full year (2012)
+        "M+": this.getMonth() + 1 # get month (10)
+        "d+": this.getDate() # get date (31)
+        "h+": this.getHours() # get hours (11)
+        "m+": this.getMinutes() # get minutes (31)
+        "s+": this.getSeconds() # get seconds (59)
+    for i of od
+        if new RegExp("(" + i + ")").test format
+            return format = format.replace RegExp.$1, od[i]
+
 module.exports = 
 class func
     @loadCtrl: (ctrl, req, res) ->
@@ -19,3 +31,6 @@ class func
             confPath = "#{APP_PATH}/config/config.json"
             @configs = JSON.parse fs.readFileSync confPath, 'UTF-8'
         @configs
+    @tsToDate: (timestamp, format = 'yyyy-MM-dd hh:mm:ss')->
+        oDate = new Date(timestamp * 1000)
+        oDate.format(format)

@@ -1,3 +1,11 @@
 extends ../board
 block board
-    pre #{jobNum}
+    table.table.table-striped
+        thead
+            tr
+                th job status
+                th job number
+        tbody
+            tr
+                td runing
+                td.orange #{jobNum}

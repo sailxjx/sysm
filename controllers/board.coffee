@@ -2,6 +2,7 @@ controller = require "./controller"
 fs = require 'fs'
 db = require "#{APP_PATH}/lib/db"
 reqmq = require "#{APP_PATH}/lib/reqmq" # mq fac to get messages from daemon process
+func = require "#{APP_PATH}/lib/func"
 sc = {} # sub controllers
 
 module.exports = 
@@ -37,15 +38,22 @@ class sc.configs
         sock.send reqmq.msgFormat 'getConfigs'
 
 # get job status
-class sc.jobs
+class sc.joblist
     render: (board)->
         sock = reqmq.getSock()
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
-            board.data.msgContent = reply.data
+            board.data.jobList = 'Job List'
+            if reply.status == 1
+                jobList = reply.data
+                for i of jobList
+                    jobList[i].starttime = func.tsToDate(jobList[i].start)
+                board.data.jobList = jobList
+            else
+                board.data.jobList = null
             sock.close()
             board.loadBoard()
-        sock.send reqmq.msgFormat 'getJobs'
+        sock.send reqmq.msgFormat 'getJobList'
 
 # get job summary
 class sc.jobsum
@@ -54,6 +62,7 @@ class sc.jobsum
         sock.on 'message', (reply)->
             reply = JSON.parse reply.toString()
             board.data.jobNum = reply.data
+            board.data.boardTitle = 'Job Summary'
             sock.close()
             board.loadBoard()
         sock.send reqmq.msgFormat 'getJobSum'

@@ -3,6 +3,10 @@ body {
   background: #eeeeee;
 }
 
+.orange {
+  color: #ff6600;
+}
+
 .navbar {
   background: #eaeaea;
   background: -webkit-linear-gradient(top, #fafafa 0%, #eaeaea 100%);
@@ -124,4 +128,25 @@ body {
   padding-top: 65px;
   display: none;
   background: white;
+}
+.popen .title {
+  background: #eaeaea;
+  background: -webkit-linear-gradient(top, #fafafa 0%, #eaeaea 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(top, #fafafa 0%, #eaeaea 100%);
+  /* FF3.6+ */
+  background: -o-linear-gradient(top, #fafafa 0%, #eaeaea 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fafafa 0%, #eaeaea 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #fafafa 0%, #eaeaea 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=$from, endColorstr=$to ,GradientType=0 );
+  /* IE6-8 */
+  padding: 10px;
+  border-bottom: 1px solid #CACACA;
+  box-shadow: 0 0 15px #c_lgray;
+}
+.popen .bcon {
+  margin: 5px;
 }

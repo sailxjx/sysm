@@ -1,4 +1,5 @@
 $('#popback').click ()->
+    $('#popen').children('.bcon').fadeOut()
     $('#popen').css({
         'width': '0',
         'margin-left': '0'
@@ -10,12 +11,18 @@ $('#popen').click (e)->
 
 popen = (url)->
     $('#popback').show()
-    $('#popen').load url, ()->
-        $(this).fadeIn 100, ()->
-            $(this).css {
-                'width': '80%',
-                'margin-left': '-40%'
-            }
+    $('#popen').fadeIn 100, ()->
+        $(this).animate {
+            'width': '80%',
+            'margin-left': '-40%'
+        }, 300, ()->
+            $(this).load url
+    # $('#popen').load url, ()->
+    #     $(this).fadeIn 100, ()->
+    #         $(this).css {
+    #             'width': '80%',
+    #             'margin-left': '-40%'
+    #         }
 
 bindPopen = ()->
     $('.bp').click ()->

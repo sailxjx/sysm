@@ -1,0 +1,21 @@
+extends ../board
+block board
+    table.table.table-striped
+        thead
+            tr
+                th id
+                th name
+                th start time
+                th params
+                th options
+                th pid
+        tbody
+            - for(var i in jobList){
+            tr
+                td #{jobList[i].id}
+                td #{jobList[i].name}
+                td #{jobList[i].starttime}
+                td #{jobList[i].params}
+                td #{jobList[i].options}
+                td #{jobList[i].pid}
+            - }

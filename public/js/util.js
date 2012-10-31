@@ -3,6 +3,7 @@
   var bindPopen, popen;
 
   $('#popback').click(function() {
+    $('#popen').children('.bcon').fadeOut();
     return $('#popen').css({
       'width': '0',
       'margin-left': '0'
@@ -17,12 +18,12 @@
 
   popen = function(url) {
     $('#popback').show();
-    return $('#popen').load(url, function() {
-      return $(this).fadeIn(100, function() {
-        return $(this).css({
-          'width': '80%',
-          'margin-left': '-40%'
-        });
+    return $('#popen').fadeIn(100, function() {
+      return $(this).animate({
+        'width': '80%',
+        'margin-left': '-40%'
+      }, 300, function() {
+        return $(this).load(url);
       });
     });
   };
