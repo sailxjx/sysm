@@ -22,12 +22,7 @@ block board
                 td
                     button.btn.btn-danger stop
             - }
-            tr
-                td
-                - for (var i=0;i<4;i++){
-                td
-                    input(type="text")
-                - }
-                td 
-                td
-                    button.btn.btn-primary add
+    div.input-append.input-prepend.command-line
+        span.add-on.code zhihui ~$
+        input#inputCmd(type="text", placeholder="add jobs in command line")
+        button.btn#addJob add

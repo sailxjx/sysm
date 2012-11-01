@@ -35,3 +35,15 @@ class func
     @tsToDate: (timestamp, format = 'yyyy-MM-dd hh:mm:ss')->
         oDate = new Date(timestamp * 1000)
         oDate.format(format)
+    @succReply: (data, msg='succ')->
+        reply=
+            status: 1
+            data: data
+            msg: msg
+        JSON.stringify reply
+    @errReply: (data, msg='error')->
+        reply=
+            status: 0
+            data: data
+            msg: msg
+        JSON.stringify reply

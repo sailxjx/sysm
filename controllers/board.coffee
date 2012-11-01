@@ -7,7 +7,7 @@ sc = {} # sub controllers
 
 module.exports = 
 class board extends controller
-    render: () ->
+    render: ->
         this.boardName = this.req.params.name
         this.data.boardTitle = 'board'
         if sc[this.boardName]
@@ -15,7 +15,7 @@ class board extends controller
             subCtrl.render this
         else
             this.loadBoard()
-    loadBoard: ()->
+    loadBoard: ->
         file = this.getBoardPath()
         self = this
         fs.exists file, (es)->
@@ -23,7 +23,7 @@ class board extends controller
                 self.res.render file, self.data
             else
                 self.res.send "sorry: called board [ #{file} ] not found"
-    getBoardPath: ()->
+    getBoardPath: ->
         "#{APP_PATH}/views/board/#{this.boardName}.jade"
 
 # get job status

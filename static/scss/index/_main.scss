@@ -92,3 +92,16 @@ body {
 .table th, .table td{
     vertical-align: middle;
 }
+.code {
+    font-family: $font_code;
+}
+.command-line {
+    float: right;
+    #inputCmd {
+        @include transition;
+        width: 200px;
+        &:focus {
+            width: 600px;
+        };
+    }
+}

@@ -23,6 +23,7 @@ app.use routes.http404
 
 app.get '/', routes.index
 app.get '/board/:name', routes.board
+app.get '/api/:action', routes.api
 app.get '/url/(:surl)?', routes.url
 
 server = http.createServer(app)
