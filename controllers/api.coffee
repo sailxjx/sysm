@@ -17,8 +17,7 @@ class api extends controller
             this.res.send func.errReply 'error', 'missing cmd params'
             return false
         else
-            sock = reqmq.getSock()
-            sock.send reqmq.msgFormat 'startJob', this.req.query
+            oReqmq = new reqmq()
             _this = this
-            sock.on 'message', (reply)->
+            oReqmq.send('startJob',this.req.query).reply (reply)->
                 _this.res.send reply.toString()

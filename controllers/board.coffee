@@ -5,64 +5,64 @@ reqmq = require "#{APP_PATH}/lib/reqmq" # mq fac to get messages from daemon pro
 func = require "#{APP_PATH}/lib/func"
 sc = {} # sub controllers
 
-module.exports = 
+module.exports =
 class board extends controller
     render: ->
         this.boardName = this.req.params.name
         this.data.boardTitle = 'board'
         if sc[this.boardName]
             subCtrl = new sc[this.boardName]
-            subCtrl.render this
+            subCtrl.render this.loadBoard
         else
             this.loadBoard()
-    loadBoard: ->
+    loadBoard: (data)=>
         file = this.getBoardPath()
-        self = this
+        for i of data
+            this.data[i] = data[i]
+        _this = this
         fs.exists file, (es)->
             if es
-                self.res.render file, self.data
+                _this.res.render file, _this.data
             else
-                self.res.send "sorry: called board [ #{file} ] not found"
-    getBoardPath: ->
+                _this.res.send "sorry: called board [ #{file} ] not found"
+    getBoardPath: =>
         "#{APP_PATH}/views/board/#{this.boardName}.jade"
 
 # get job status
 class sc.joblist
-    render: (board)->
-        sock = reqmq.getSock()
-        sock.send reqmq.msgFormat 'getJobList'
-        sock.on 'message', (reply)->
+    render: (callback)->
+        oReqmq = new reqmq()
+        oReqmq.send('getJobList').reply (reply)->
             reply = JSON.parse reply.toString()
-            board.data.boardTitle = 'Job List'
+            data =
+                boardTitle: 'Job List'
             if reply.status == 1
                 jobList = reply.data
                 for i of jobList
-                    jobList[i].starttime = func.tsToDate(jobList[i].start)
-                board.data.jobList = jobList
+                    jobList[i].starttime = func.tsToDate jobList[i].start
+                data.jobList = jobList
             else
-                board.data.jobList = null
-            sock.close()
-            board.loadBoard()
+                data.jobList = null
+            callback data
 
 # get job summary
 class sc.jobsum
-    render: (board)->
-        sock = reqmq.getSock()
-        sock.send reqmq.msgFormat 'getJobSum'
-        sock.on 'message', (reply)->
+    render: (callback)->
+        oReqmq = new reqmq()
+        oReqmq.send('getJobSum').reply (reply)->
             reply = JSON.parse reply.toString()
-            board.data.jobNum = reply.data
-            board.data.boardTitle = 'Job Summary'
-            sock.close()
-            board.loadBoard()
+            data = 
+                boardTitle: 'Job Summary'
+                jobNum: reply.data
+            callback data
 
 # get mail summary
 class sc.mailsum
-    render: (board)->
-        sock = reqmq.getSock()
-        sock.send reqmq.msgFormat 'getMailSum'
-        sock.on 'message', (reply)->
+    render: (callback)->
+        oReqmq = new reqmq()
+        oReqmq.send('getMailSum').reply (reply)->
             reply = JSON.parse reply.toString()
-            board.data.mailSum = reply.data
-            board.data.boardTitle = 'Mail Summary'
-            board.loadBoard()
+            data = 
+                mailSum: reply.data
+                boardTitle: 'Mail Summary'
+            callback data
