@@ -11,7 +11,7 @@ class api extends controller
             this[action]()
         else
             this.res.send func.errReply 'error', 'could not find the called api action'
-    startJob: ->
+    startjob: ->
         cmd = this.req.query.cmd
         if cmd == undefined
             this.res.send func.errReply 'error', 'missing cmd params'

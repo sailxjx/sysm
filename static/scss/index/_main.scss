@@ -97,7 +97,7 @@ body {
 }
 .command-line {
     float: right;
-    #inputCmd {
+    #cmdInput {
         @include transition;
         width: 200px;
         &:focus {
