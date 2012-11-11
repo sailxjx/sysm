@@ -10,6 +10,7 @@ notice:
 * 单项设置reqdata，不要直接覆盖data
 * coffeescript的对象遍历与js不同: for i of object
 * too many open files的解决办法 （每次socket调用完成后别忘了close）
+* package.json保存公有config,config中保存私有config
 
 todo:
 ---

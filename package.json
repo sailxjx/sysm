@@ -8,7 +8,7 @@
         "socket.io": "0.9.x",
         "redis": "*",
         "hiredis": "*",
-        "coffee-script": "1.3.x",
+        "coffee-script": "1.4.x",
         "jade": "*",
         "zmq": "*"
     }

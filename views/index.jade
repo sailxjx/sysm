@@ -5,7 +5,12 @@ block content
     div#popback.popback
         div#popen.popen
     div.container
-        div.board.board-small.bp(board="jobsum", target-url="#{baseDomain}/board/joblist")
-        div.board.board-medium(board="mailsum")
+        - for(var i in boards) {
+        -   if (boards[i].target) {
+        div(class="board bp board-#{boards[i].size}", board="#{boards[i].name}", target-url="#{baseDomain}/board/#{boards[i].target}")
+        -   }else{
+        div(class="board board-#{boards[i].size}", board="#{boards[i].name}")
+        -   }
+        - }
 block script
     script(src='#{baseDomain}/js/index.js')
