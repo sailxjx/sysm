@@ -1,0 +1,34 @@
+extends layout
+block stylesheet
+    link(href="/css/publish.css", rel="stylesheet")
+block content
+    table.table.table-striped
+        thead
+            tr
+                th Project
+                th Branch
+                th Target
+                th Timestamp
+                th VCS
+                th Control
+        tbody
+            tr
+                td
+                    select.span2
+                        - for(var i in projects){
+                        option #{i}
+                        - }
+                td
+                    input.span2(type="text", placeholder="branch")
+                td
+                    select.span2
+                        - for(var i in targets){
+                        option #{targets[i]}
+                        - }
+                td 
+                    input(type="checkbox")
+                td svn
+                td 
+                    button.btn publish
+block script
+    script(src="/js/publish.js")

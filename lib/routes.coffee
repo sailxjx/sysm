@@ -14,3 +14,6 @@ exports.api = (req, res) ->
 
 exports.url = (req, res)->
     func.loadCtrl 'url', req, res
+
+exports.publish = (req, res)->
+    func.loadCtrl 'publish', req, res
