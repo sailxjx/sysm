@@ -10,6 +10,7 @@
         "hiredis": "*",
         "coffee-script": "1.4.x",
         "jade": "*",
-        "zmq": "*"
+        "zmq": "*",
+        "colors": "*"
     }
 }

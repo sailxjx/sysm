@@ -10,13 +10,16 @@ rConf =
 projects =
     fun:
         vcs: 'svn'
-        url: 'svn://192.168.0.178/fun'
-        dir: '/usr/local/webdata/fun'
+        url: 'svn://192.168.0.178/fun/release'
+        dir: '/usr/local/webdata/fun/release'
     passport:
         vcs: 'svn'
         url: 'svn://192.168.0.178/passport'
         dir: '/usr/local/webdata/passport'
-
+    sysd:
+        vcs: 'git'
+        url: 'git@192.168.100.54:sysd.git'
+        dir: '/usr/local/webdata/sysd'
 
 # 研发, 测试, 外测1, 外测2, 预发布, 生产
 targets = ['dev','test', 'alpha1', 'alpha2', 'beta', 'product']
