@@ -11,6 +11,7 @@ notice:
 * coffeescript的对象遍历与js不同: for i of object
 * too many open files的解决办法 （每次socket调用完成后别忘了close）
 * package.json保存公有config,config中保存私有config
+* a = b = {} is evil
 
 todo:
 ---

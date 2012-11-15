@@ -16,14 +16,15 @@ block content
                 td
                     select.span2
                         - for(var i in projects){
-                        option #{i}
+                        option #{projects[i].pname}
                         - }
                 td
                     input.span2(type="text", placeholder="branch")
                 td
                     select.span2
+                        - console.log(targets)
                         - for(var i in targets){
-                        option #{targets[i]}
+                        option #{targets[i].name}
                         - }
                 td 
                     input(type="checkbox")
