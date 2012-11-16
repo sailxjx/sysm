@@ -23,7 +23,7 @@ step1() {
 
 step2() {
     echo "step2: compile all scss files to css from static to public"
-    scss --update -f -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
+    scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
 }
 
 step3() {
