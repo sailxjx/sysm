@@ -3,13 +3,13 @@ html(lang="en")
   head
     title #{title}
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(href="#{baseDomain}/css/lib/bootstrap.css", rel="stylesheet")
+    link(href="#{baseDomain}/libcss/lib/bootstrap.css", rel="stylesheet")
     block stylesheet
-    link(href="#{baseDomain}/css/lib/bootstrap-responsive.css", rel="stylesheet")
+    link(href="#{baseDomain}/libcss/bootstrap-responsive.css", rel="stylesheet")
   body
     include navbar
     block content
-    script(src='#{baseDomain}/js/lib/jquery-1.8.2.min.js')
-    script(src='#{baseDomain}/js/lib/bootstrap-collapse.js')
+    script(src='#{baseDomain}/libjs/jquery-1.8.2.min.js')
+    script(src='#{baseDomain}/libjs/bootstrap-collapse.js')
     block script
     include footer
