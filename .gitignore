@@ -3,3 +3,7 @@ node_modules
 .tags
 .tags_sorted_by_file
 .sass-cache
+/public/css/
+/public/js/
+!/public/js/lib/*
+!/public/css/lib/*
