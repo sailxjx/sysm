@@ -20,3 +20,18 @@ body {
         };
     }
 }
+.err {
+    color: $c_red;
+}
+.succ {
+    color: $c_green;
+}
+.line {
+    display: block;
+}
+.code {
+    font-family: $font_code;
+}
+code {
+    font-family: $font_code;
+}

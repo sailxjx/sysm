@@ -30,6 +30,7 @@ targets =
         name: '研发'
         ssh:
             '192.168.100.60': [22]
+            'tristan@192.168.1.109': [22]
         gbr: null
         sbr: null
     alpha1:

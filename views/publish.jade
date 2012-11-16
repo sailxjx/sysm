@@ -3,36 +3,43 @@ block stylesheet
     link(href="/css/publish.css", rel="stylesheet")
 block content
     section.dashboard
-        table.table.table-striped
-            thead
-                tr
-                    th Project
-                    th Branch
-                    th Target
-                    th Timestamp
-                    th VCS
-                    th Control
-            tbody
-                tr
-                    td
-                        select.span2
-                            - for(var i in projects){
-                            option #{projects[i].pname}
-                            - }
-                    td
-                        input.span2(type="text", placeholder="branch")
-                    td
-                        select.span2
-                            - console.log(targets)
-                            - for(var i in targets){
-                            option #{targets[i].name}
-                            - }
-                    td 
-                        input(type="checkbox")
-                    td svn
-                    td 
-                        button.btn publish
+        form#pub-form(method="get", action="/api/publish")
+            table.table.table-striped
+                thead
+                    tr
+                        th Project
+                        th Branch
+                        th Version
+                        th Target
+                        th Timestamp
+                        th Control
+                tbody
+                    tr
+                        td
+                            select.pub-param.chzn-select(name="pname")
+                                - for(var i in projects){
+                                option #{projects[i].pname}
+                                - }
+                        td
+                            input.span2.pub-param(type="text", placeholder="branch", name="branch")
+                        td
+                            input.span2.pub-param(type="text", placeholder="version", name="version")
+                        td
+                            select.pub-param.chzn-select(name="target")
+                                - for(var i in targets){
+                                option(value="#{i}") #{targets[i].name}
+                                - }
+                        td 
+                            input.pub-param(type="checkbox", name="timestamp", value="true")
+                        td 
+                            button#pub.btn(type="submit") publish
     aside.right-log
-        
+        pre#pub-log
+            - for(var i in logList) {
+            span(class="line #{logList[i].type}") #{logList[i].msg}
+            - }
+            hr
+    p.msgline 
 block script
+    script(src="/libjs/jquery.form.js")
     script(src="/js/publish.js")

@@ -5,7 +5,8 @@ params =
     pname: 'fun'
     version: null
     branch: 'goshop'
-    target: 'alpha1'
+    target: 'alpha1',
+    timestamp: false
 
 cback = (err, data)->
     if err?

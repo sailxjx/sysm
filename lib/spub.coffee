@@ -2,6 +2,7 @@ exec = require('child_process').exec
 spawn = require('child_process').spawn
 colors = require 'colors'
 fs = require 'fs'
+func = require "#{APP_PATH}/lib/func"
 db = require "#{APP_PATH}/lib/db"
 rc = db.loadRedis('redisPub')
 
@@ -11,7 +12,13 @@ spub = (params, callback)->
         prefix: '/tmp/pub/'
         username: 'hudson'
         password: 'JvjLYFIr'
+        sshUser: 'tuangouadmin'
     project = localDir = destDir = target = null
+    d = new Date()
+    pubLog = [{
+        type: 'log'
+        msg: "publish time: #{d}"
+    }]
     pubInit = ->
         if !params.pname || !params.target
             eback 'pname* or target* not found'
@@ -49,33 +56,86 @@ spub = (params, callback)->
                     eback err
                 else
                     slog 'delete succ'
-                    rsync()
+                    publish()
         else
-            rsync()
+            publish()
 
     glog = (msg)->
-        console.log msg.toString().grey
+        msg = msg.toString()
+        pubLog.push {
+            type: 'log'
+            msg: msg
+        }
+        console.log msg.grey
 
     elog = (msg)->
-        console.log msg.toString().red
+        msg = msg.toString()
+        pubLog.push {
+            type: 'err'
+            msg: msg
+        }
+        console.log msg.red
 
     slog = (msg)->
-        console.log msg.toString().green
+        msg = msg.toString()
+        pubLog.push {
+            type: 'succ'
+            msg: msg
+        }
+        console.log msg.green
 
     eback = (err, data = null)->
         elog err
-        callback err, data
+        logRedis()
+        callback err, pubLog
 
     sback = (data)->
-        callback null, data
+        logRedis()
+        callback null, pubLog
 
-    rsync = ->
+    logRedis = ()->
+        rc.zadd 'publish:log', parseInt(d.getTime()/1000), JSON.stringify pubLog
+
+    publish = ->
         switch project.vcs
-            when 'git' then rsyncGit()
-            when 'svn' then rsyncSvn()
+            when 'git' then toGit()
+            when 'svn' then toSvn()
             else eback 'error: project.vcs not found'
 
-    rsyncGit = ->
+    toRsync = ->
+        totalNum = succNum = 0
+        stepIn = ->
+            cmdList = []
+            ssh = target.ssh
+            for server of ssh
+                [user, host] = server.split '@' # server could be '192.168.0.1' or 'tuangou@192.168.0.1'
+                if func.empty host
+                    host = user
+                    user = pubData.sshUser
+                for port in ssh[server]
+                    cmd = ['rsync', '-aq', '--delete-after', '--ignore-errors', '--force']
+                    cmd = cmd.concat ['-e', "\"ssh -p #{port}\""]
+                    cmd = cmd.concat getExclude()
+                    cmd = cmd.concat [localDir, "#{user}@#{host}:#{project.dir}"]
+                    cmdList.push cmd.join ' '
+            totalNum = cmdList.length
+            for cmdStr in cmdList
+                glog "rsync to destination: #{cmdStr}"
+                exec cmdStr, (err, stdout, stderr)->
+                    if err? then eback err else
+                        slog "rsync succ: #{cmdStr}"
+                        stepBack()
+        stepBack = ->
+            ++succNum
+            if succNum < totalNum
+                glog "#{succNum} server rsync succ."
+                return true
+            sback()
+        getExclude = ->
+            ['--exclude=Conf/', '--exclude=.svn/']
+        stepIn()
+
+    toGit = ->
         stepIn = ->
             if fs.existsSync localDir
                 stepArch()
@@ -85,7 +145,6 @@ spub = (params, callback)->
                         eback 'could not make local dir'
                     else
                         stepArch()
-            # git archive master --remote=git@192.168.100.54:sysd.git --format=tar --prefix=sysd/ | tar -xf - -C /tmp/pub
         stepArch = ->
             cmd = ['git', 'archive']
             cmd.push getBranch()
@@ -98,23 +157,11 @@ spub = (params, callback)->
                     eback err
                 else
                     slog 'archive succ'
-                    stepRsync()
-        stepRsync = ->
-            cmd = ['rsync', '-aq', '--delete-after', '--ignore-errors', '--force']
-            cmd = cmd.concat getExclude()
-            cmd = cmd.concat [localDir, project.dir]
-            cmdStr = cmd.join ' '
-            glog "rsync to destination: #{cmdStr}"
-            exec cmdStr, (err, stdout, stderr)->
-                if err? then eback err else
-                    slog 'rsync succ'
-                    sback stdout
-        getExclude = ->
-            []
+                    toRsync()
         getBranch = ->
-            branch = null
-            if params.branch?
-                branch = params.branch
+            branch = params.branch.trim()
+            if branch? && branch != ''
+                
             else if target.gbr
                 branch = target.gbr
             else
@@ -122,12 +169,13 @@ spub = (params, callback)->
             branch
         stepIn()
 
-    rsyncSvn = ->
+    toSvn = ->
         stepIn = ->
             stepExport()
         stepExport = ->
             cmd = ['svn','export', '-q']
-            cmd = cmd.concat ['-r', params.version] if params.version?
+            version = params.version.trim()
+            cmd = cmd.concat ['-r', version] if version? && version != ''
             cmd.push getUrl()
             cmd.push localDir
             cmd = cmd.concat ['--username', pubData.username, '--password', pubData.password]
@@ -138,22 +186,11 @@ spub = (params, callback)->
                     eback err
                 else
                     slog 'export succ'
-                    stepRsync()
-        stepRsync = ->
-            cmd = ['rsync', '-aq', '--delete-after', '--ignore-errors', '--force']
-            cmd = cmd.concat getExclude()
-            cmd = cmd.concat [localDir, project.dir]
-            cmdStr = cmd.join ' '
-            glog "rsync to destination: #{cmdStr}"
-            exec cmdStr, (err, stdout, stderr)->
-                if err? then eback err else 
-                    slog 'rsync succ'
-                    sback stdout
-        getExclude = ->
-            ['--exclude=Conf/', '--exclude=.svn/']
+                    toRsync()
         getUrl = ->
-            if params.branch?
-                url = project.url + '/branches/' + params.branch
+            branch = params.branch.trim()
+            if !func.empty branch
+                url = project.url + '/branches/' + branch
             else if target.sbr
                 url = "#{project.url}/#{target.sbr}/"
             else

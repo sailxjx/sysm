@@ -47,3 +47,7 @@ class func
             data: data
             msg: msg
         JSON.stringify reply
+    @empty: (v)->
+        if typeof v == "undefined" || v == null || v.trim() == ""
+            return true
+        false

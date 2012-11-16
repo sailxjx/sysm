@@ -4,6 +4,7 @@ func = require "#{APP_PATH}/lib/func"
 reqmq = require "#{APP_PATH}/lib/reqmq"
 db = require "#{APP_PATH}/lib/db"
 rc = db.loadRedis 'redisPub'
+spub = require "#{APP_PATH}/lib/spub"
 
 module.exports = 
 class api extends controller
@@ -24,14 +25,15 @@ class api extends controller
             oReqmq.send('startJob',this.req.query).reply (reply)->
                 _this.res.send reply.toString()
     publish: ->
-        pname = this.req.query.pname
+        params = this.req.query
         _this = this
-        if pname
-            rc.get 'publish:projects', (err, replys)->
-                projects = JSON.parse replys
-                if projects[pname]?
-                    project = projects[pname]
-                else
-                    _this.res.send "error: pname[#{pname}] not found"
-        else
-            _this.res.send "error: please give me the pname"
+        if params.timestamp? then params.timestamp = true else params.timestamp = false
+        spub params, (err, data)->
+            if err?
+                _this.errReply data, err.toString()
+            else
+                _this.succReply data, 'success: project has been successfully published.'
+    errReply: (data, msg='error')=>
+        this.res.send func.errReply data, msg
+    succReply: (data, msg='succ')=>
+        this.res.send func.succReply data, msg
