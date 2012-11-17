@@ -11,18 +11,21 @@ Date.prototype.format = (format)->
             format = format.replace RegExp.$1, od[i]
     format
 
-module.exports = 
+module.exports =
 class func
-    @loadCtrl: (ctrl, req, res) ->
+    @applyCtrl = (ctrl, req, res, method=null)->
         try
-            oCtrl = require "lib/controllers/#{ctrl}.coffee"
+            oCtrl = require "lib/controllers/#{ctrl}"
             eCtrl = new oCtrl req, res
-            eCtrl.render()
+            if method?
+                eCtrl[method]()
+            else
+                eCtrl.before()
         catch e
             console.log e
-            throw "error: called controller [ #{file} ] not found! "
+            throw "error: called controller [ #{file} ] not found! "        
     @getConf: (key)->
-        configs = this.loadConf()
+        configs = @loadConf()
         configs[key]
     @loadConf: ->
         if @empty @configs
@@ -56,3 +59,13 @@ class func
             when "number" then return true if v == 0
             else return false
         false
+    @setCookie: (res, name, value)->
+        cookieConf = @getConf 'cookie'
+        cookieConf.expires = new Date(Date.now() + cookieConf.expires * 1000)
+        res.cookie name, value, cookieConf
+    @getCookie: (req, name)->
+        if @empty req.cookies[name] then return null else return req.cookies[name]
+    @send500: (res)->
+        res.send 'something error'
+    @send404: (res)->
+        # @todo send404

@@ -7,5 +7,5 @@ class index extends controller
         boards = func.getConf 'boards'
         for board in boards
             if board.size == undefined then board.size = 'small'
-        this.data.boards = boards
-        this.res.render 'index', this.data
+        @data.boards = boards
+        @res.render 'index', @data

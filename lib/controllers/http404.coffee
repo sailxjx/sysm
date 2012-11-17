@@ -2,6 +2,8 @@ controller = require 'lib/controllers/controller'
 
 module.exports = 
 class http404 extends controller
-    render: () ->
-        this.data.title = 'Welcome to 404'
-        this.res.render 'http404', this.data
+    render: () =>
+        @data.title = 'Welcome to 404'
+        @res.render 'http404', @data
+    before: () =>
+        @render()

@@ -13,7 +13,7 @@ class api extends controller
         if this[action]
             this[action]()
         else
-            this.res.send func.errReply 'error', 'could not find the called api action'
+            @errReply 'error', 'could not find the called api action'
     startjob: ->
         cmd = this.req.query.cmd
         if cmd

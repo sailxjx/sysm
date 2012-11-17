@@ -8,7 +8,7 @@
     height: $h;
     z-index: 3;
 }
-@mixin shadow($h: 0, $v: 0, $blur: 15px, $spread: 0, $color: $c_dgray) {
+@mixin shadow($h: 0, $v: 0, $blur: 15px, $spread: 0, $color: $c_lgray) {
     box-shadow: $h $v $blur $spread $color;
     -webkit-box-shadow: $h $v $blur $spread $color;
     -moz-box-shadow: $h $v $blur $spread $color;

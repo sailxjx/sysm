@@ -11,7 +11,7 @@
         @include gradient(#FAFAFA, #EAEAEA);
         padding: 10px;
         border-bottom: 1px solid #CACACA;
-        box-shadow: 0 0 15px #c_lgray;
+        @include shadow;
     }
     .bcon {
         margin: 5px;        
@@ -57,7 +57,7 @@
         @include gradient(#FAFAFA, #EAEAEA);
         padding: 10px;
         border-bottom: 1px solid #CACACA;
-        box-shadow: 0 0 15px #c_lgray;
+        @include shadow;
     }
     .bcon {
         margin: 5px;        
@@ -75,4 +75,12 @@
             width: 600px;
         };
     }
+}
+.login-form {
+    @include shadow;
+    margin: 20px auto;
+    width: 500px;
+    padding: 20px;
+    background: $c_white;
+    border-radius: 5px;
 }

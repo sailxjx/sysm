@@ -6,8 +6,7 @@ func = require "lib/func"
 db = require "lib/db"
 rc = db.loadRedis('redisPub')
 
-module.exports = 
-spub = (params, callback)->
+exports.spub = (params, callback)->
     pubData =
         prefix: '/tmp/pub/'
         username: 'hudson'

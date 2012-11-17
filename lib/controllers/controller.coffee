@@ -1,13 +1,22 @@
 func = require "lib/func"
+user = require "lib/user"
 
 module.exports = 
 class controller
     constructor: (req, res)->
-        this.req = req
-        this.res = res
-        this.data = {
+        @req = req
+        @res = res
+        @data = {
             title: 'System Backyard - "SB" for short?'
             baseDomain: func.getConf 'baseDomain'
         }
-    render: (req, res) ->
-        res.send 'app running'
+    render: () =>
+        @res.send 'app running'
+    before: () =>
+        _this = this
+        user.authCheck _this.req, _this.res, (userInfo)->
+            if func.empty userInfo
+                func.applyCtrl 'login', _this.req, _this.res, 'render'
+            else
+                _this.req.userInfo = userInfo
+                _this.render()

@@ -9,6 +9,11 @@
         "port": "6380"
     },
     "baseDomain": "http://sysm.local.com",
+    "cookie": {
+        "domain": ".sysm.local.com",
+        "path": "/",
+        "expires": 86400
+    },
     "zmqReq": {
         "dsn": "tcp://127.0.0.1:5555"
     },
