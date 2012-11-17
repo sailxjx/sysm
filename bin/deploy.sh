@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 
 getRealDir() {
-    ORI_LINK_DIR=''
+    local REAL_DIR ORI_LINK_DIR BASE_FILE_DIR LINK_FILE
     [[ $2 != '' ]] && ORI_LINK_DIR="$(dirname $2)/"
     BASE_FILE_DIR=$(dirname $1)
     LINK_FILE=$(readlink $1)
     if [[ $? == 1 ]]; then
         if [[ $BASE_FILE_DIR =~ ^\/ ]]; then
-            echo ${BASE_FILE_DIR}
+            REAL_DIR=${BASE_FILE_DIR}
         else
-            echo ${ORI_LINK_DIR}${BASE_FILE_DIR}
+            REAL_DIR=${ORI_LINK_DIR}${BASE_FILE_DIR}
         fi
-        exit 0
+    else
+        REAL_DIR=$(getRealDir $LINK_FILE $1)
     fi
-    echo $(getRealDir $LINK_FILE $1) && exit 1
+    echo $(cd $REAL_DIR && pwd) && exit 0
 }
 
 step1() {
@@ -28,10 +29,11 @@ step2() {
 
 step3() {
     echo "step3: start app"
-    coffee $BASEDIR/app
+    export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && coffee $BASEDIR/app
 }
 
 BASEDIR=$(dirname $(getRealDir $0))
+NODE_ENV="dev"
 
 case "$1" in
     --help)

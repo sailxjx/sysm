@@ -1,8 +1,7 @@
-controller = require "./controller"
-fs = require 'fs'
-db = require "#{APP_PATH}/lib/db"
-reqmq = require "#{APP_PATH}/lib/reqmq" # mq fac to get messages from daemon process
-func = require "#{APP_PATH}/lib/func"
+controller = require "lib/ctl/controller"
+db = require "lib/db"
+reqmq = require "lib/reqmq" # mq fac to get messages from daemon process
+func = require "lib/func"
 sc = {} # sub controllers
 
 module.exports =
@@ -16,17 +15,13 @@ class board extends controller
         else
             this.loadBoard()
     loadBoard: (data)=>
-        file = this.getBoardPath()
         for i of data
-            this.data[i] = data[i]
-        _this = this
-        fs.exists file, (es)->
-            if es
-                _this.res.render file, _this.data
-            else
-                _this.res.send "sorry: called board [ #{file} ] not found"
-    getBoardPath: =>
-        "#{APP_PATH}/views/board/#{this.boardName}.jade"
+            @data[i] = data[i]
+        try
+            @res.render "board/#{@boardName}", @data
+        catch e
+            console.log e
+            @res.send "sorry: called board [ board/#{@boardName} ] not found"
 
 # get job status
 class sc.joblist

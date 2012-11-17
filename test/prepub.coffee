@@ -1,5 +1,4 @@
-global.APP_PATH = __dirname + '/..'
-spub = require '../lib/spub'
+spub = require 'lib/spub'
 
 params =
     pname: 'fun'

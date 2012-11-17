@@ -1,5 +1,3 @@
-fs = require 'fs'
-
 Date.prototype.format = (format)->
     od = 
         "y+": this.getFullYear() # get full year (2012)
@@ -16,21 +14,24 @@ Date.prototype.format = (format)->
 module.exports = 
 class func
     @loadCtrl: (ctrl, req, res) ->
-        file = "#{APP_PATH}/controllers/#{ctrl}.coffee"
-        fs.exists file, (es)->
-            if es
-                oCtrl = require file
-                eCtrl = new oCtrl req, res
-                eCtrl.render()
-            else
-                throw "error: called controller [ #{file} ] not found! "
+        try
+            oCtrl = require "lib/ctl/#{ctrl}.coffee"
+            eCtrl = new oCtrl req, res
+            eCtrl.render()
+        catch e
+            console.log e
+            throw "error: called controller [ #{file} ] not found! "
     @getConf: (key)->
         configs = this.loadConf()
         configs[key]
     @loadConf: ->
-        if @configs == undefined
-            confPath = "#{APP_PATH}/config/config.json"
-            @configs = JSON.parse fs.readFileSync confPath, 'UTF-8'
+        if @empty @configs
+            env = process.env.NODE_ENV
+            env = 'dev' if @empty env
+            try
+                @configs = require "configs/#{env}.json"
+            catch e
+                throw "error: called config [ #{env} ] not found! "
         @configs
     @tsToDate: (timestamp, format = 'yyyy-MM-dd hh:mm:ss')->
         oDate = new Date(timestamp * 1000)
@@ -48,6 +49,10 @@ class func
             msg: msg
         JSON.stringify reply
     @empty: (v)->
-        if typeof v == "undefined" || v == null || v.trim() == ""
-            return true
+        switch typeof v
+            when "undefined" then return true
+            when "string" then return true if v.trim() == ""
+            when "object" then return true if v == null || v.length == 0
+            when "number" then return true if v == 0
+            else return false
         false

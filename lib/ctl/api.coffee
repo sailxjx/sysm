@@ -1,10 +1,10 @@
-controller = require "./controller"
+controller = require "lib/ctl/controller"
 url = require "url"
-func = require "#{APP_PATH}/lib/func"
-reqmq = require "#{APP_PATH}/lib/reqmq"
-db = require "#{APP_PATH}/lib/db"
+func = require "lib/func"
+reqmq = require "lib/reqmq"
+db = require "lib/db"
 rc = db.loadRedis 'redisPub'
-spub = require "#{APP_PATH}/lib/spub"
+spub = require "lib/spub"
 
 module.exports = 
 class api extends controller

@@ -1,6 +1,6 @@
 # page to generate short url
-controller = require "./controller"
-db = require "#{APP_PATH}/lib/db"
+controller = require "lib/ctl/controller"
+db = require "lib/db"
 
 module.exports = 
 class url extends controller

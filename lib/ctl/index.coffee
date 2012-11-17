@@ -1,5 +1,5 @@
-controller = require './controller'
-func = require "#{APP_PATH}/lib/func"
+controller = require 'lib/ctl/controller'
+func = require "lib/func"
 
 module.exports = 
 class index extends controller

@@ -2,8 +2,8 @@ exec = require('child_process').exec
 spawn = require('child_process').spawn
 colors = require 'colors'
 fs = require 'fs'
-func = require "#{APP_PATH}/lib/func"
-db = require "#{APP_PATH}/lib/db"
+func = require "lib/func"
+db = require "lib/db"
 rc = db.loadRedis('redisPub')
 
 module.exports = 
@@ -34,6 +34,10 @@ spub = (params, callback)->
                                 destDir = project.dir
                                 checkDestDir()
 
+    preHook = ->
+        
+    postHook = ->
+        
     checkDestDir = ->
         glog "check destination dir: #{destDir}"
         if fs.existsSync destDir
@@ -87,16 +91,21 @@ spub = (params, callback)->
     eback = (err, data = null)->
         elog err
         logRedis()
-        callback err, pubLog
+        back err, pubLog
 
     sback = (data)->
         logRedis()
-        callback null, pubLog
+        back null, pubLog
+
+    back = (err, data)->
+        postHook()
+        callback err, data
 
     logRedis = ()->
         rc.zadd 'publish:log', parseInt(d.getTime()/1000), JSON.stringify pubLog
 
     publish = ->
+        preHook()
         switch project.vcs
             when 'git' then toGit()
             when 'svn' then toSvn()

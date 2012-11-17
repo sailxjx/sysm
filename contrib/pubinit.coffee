@@ -1,10 +1,7 @@
 #!/usr/bin/env coffee
 # init project publish configs in redis
 redis = require 'redis'
-
-rConf =
-    port: '6380'
-    host: '127.0.0.1'
+db = require "../lib/db"
 
 # 项目
 projects =
@@ -73,12 +70,13 @@ targets =
 console.log 'begin';
 console.log projects
 console.log targets
-rc = redis.createClient rConf.port, rConf.host
-rc.multi()
+rc = db.loadRedis 'redisPub'
+rm = rc.multi()
 for pname of projects
-    rc.hset 'publish:projects', pname, JSON.stringify projects[pname]
+    rm.hset 'publish:projects', pname, JSON.stringify projects[pname]
 for tar of targets
-    rc.hset 'publish:targets', tar, JSON.stringify targets[tar]
-rc.exec (err, reply)->
-    console.log 'finish';
+    rm.hset 'publish:targets', tar, JSON.stringify targets[tar]
+rm.exec (err, reply)->
+    console.log err
+    console.log 'finish'
     rc.quit()

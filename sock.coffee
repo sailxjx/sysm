@@ -1,10 +1,9 @@
 #!/usr/local/env coffee
 
-global.APP_PATH = __dirname
 express = require 'express'
 http = require 'http'
 socketio = require 'socket.io'
-func = require "#{APP_PATH}/lib/func"
+func = require "lib/func"
 
 app = express()
 server = http.createServer app

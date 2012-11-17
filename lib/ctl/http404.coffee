@@ -1,4 +1,4 @@
-controller = require './controller'
+controller = require 'lib/ctl/controller'
 
 module.exports = 
 class http404 extends controller

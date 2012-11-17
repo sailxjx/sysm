@@ -1,4 +1,4 @@
-func = require "#{APP_PATH}/lib/func"
+func = require "lib/func"
 
 module.exports = 
 class controller
