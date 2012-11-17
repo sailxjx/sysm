@@ -1,4 +1,4 @@
-controller = require "lib/ctl/controller"
+controller = require "lib/controllers/controller"
 db = require "lib/db"
 reqmq = require "lib/reqmq" # mq fac to get messages from daemon process
 func = require "lib/func"

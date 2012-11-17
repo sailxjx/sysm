@@ -1,4 +1,4 @@
-controller = require "lib/ctl/controller"
+controller = require "lib/controllers/controller"
 url = require "url"
 func = require "lib/func"
 reqmq = require "lib/reqmq"

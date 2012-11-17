@@ -15,7 +15,7 @@ module.exports =
 class func
     @loadCtrl: (ctrl, req, res) ->
         try
-            oCtrl = require "lib/ctl/#{ctrl}.coffee"
+            oCtrl = require "lib/controllers/#{ctrl}.coffee"
             eCtrl = new oCtrl req, res
             eCtrl.render()
         catch e

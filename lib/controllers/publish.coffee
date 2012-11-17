@@ -1,4 +1,4 @@
-controller = require "lib/ctl/controller"
+controller = require "lib/controllers/controller"
 db = require "lib/db"
 rc = db.loadRedis 'redisPub'
 

@@ -1,4 +1,4 @@
-controller = require 'lib/ctl/controller'
+controller = require 'lib/controllers/controller'
 func = require "lib/func"
 
 module.exports = 
