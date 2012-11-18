@@ -1,8 +1,8 @@
-extends layout
+extends ../../layout
 block stylesheet
-    link(href="/css/index.css", rel="stylesheet")
+    link(href="/css/admin.css", rel="stylesheet")
 block content
-    form#login-form.form-horizontal.login-form(method="get", action="/openapi/login")
+    form#reg-form.form-horizontal.reg-form(method="get", action="/openapi/reg")
         div.control-group
             label.control-label(for="inputUserName") UserName
             div.controls
@@ -12,8 +12,12 @@ block content
             div.controls
                 input#inputPassword(type="password", placeholder="Password", name="user[pwd]", required)
         div.control-group
+            label.control-label(for="inputPassword") Password Comfirm
             div.controls
-                button.btn(type="submit") Login In
+                input#inputPassword(type="password", placeholder="Password", name="user[pwd2]", required)
+        div.control-group
+            div.controls
+                button.btn(type="submit") Sign In
 block script
     script(src="/libjs/jquery.form.js")
-    script(src="/js/login.js")
+    script(src="/js/admin.js")

@@ -21,12 +21,13 @@ app.use express.static path.join __dirname, 'public'
 app.use routes.http404
 
 app.get '/', routes.index
-app.get '/login/?', routes.login
+app.get '/login/?', routes.default
+app.get '/admin/:controller/:action/?', routes.admin
 app.get '/pub/?', routes.publish
-app.get '/board/:name/?', routes.board
-app.get '/api/:action/?', routes.api
-app.get '/openapi/:action/?', routes.openapi
-app.get '/url/(:surl)?', routes.url
+app.get '/board/:name/?', routes.default
+app.get '/api/:action/?', routes.default
+app.get '/openapi/:action/?', routes.default
+app.get '/url/(:surl)?', routes.default
 
 server = http.createServer(app)
 server.listen app.get('port'), ()->
