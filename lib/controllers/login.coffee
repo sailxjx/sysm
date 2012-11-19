@@ -1,5 +1,5 @@
 controller = require 'lib/controllers/controller'
-user = require "lib/user"
+libUser = require "lib/user"
 func = require "lib/func"
 
 module.exports = 
@@ -9,9 +9,8 @@ class login extends controller
         @res.render 'login', @data
     before: () =>
         _this = this
-        user.authCheck _this.req, _this.res, (userInfo)->
-            if func.empty userInfo
+        libUser.authCheck _this.req, _this.res, (err, replys)->
+            if err?
                 _this.render()
             else
-                _req.userInfo = userInfo
-                func.applyCtrl 'index', _this.req, _this.res
+                _this.res.redirect func.getConf('baseDomain')

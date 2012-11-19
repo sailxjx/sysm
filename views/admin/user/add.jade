@@ -2,7 +2,7 @@ extends ../../layout
 block stylesheet
     link(href="/css/admin.css", rel="stylesheet")
 block content
-    form#reg-form.form-horizontal.reg-form(method="get", action="/openapi/reg")
+    form#reg-form.form-horizontal.reg-form(method="get", action="/api/reg")
         div.control-group
             label.control-label(for="inputUserName") UserName
             div.controls
@@ -14,10 +14,11 @@ block content
         div.control-group
             label.control-label(for="inputPassword") Password Comfirm
             div.controls
-                input#inputPassword(type="password", placeholder="Password", name="user[pwd2]", required)
+                input#inputPassword(type="password", placeholder="Password", name="user[pwdrepeat]", required)
         div.control-group
             div.controls
                 button.btn(type="submit") Sign In
+                span#subTip.help-inline
 block script
     script(src="/libjs/jquery.form.js")
     script(src="/js/admin.js")

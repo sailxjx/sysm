@@ -1,3 +1,5 @@
+crypto = require 'crypto'
+
 Date.prototype.format = (format)->
     od = 
         "y+": this.getFullYear() # get full year (2012)
@@ -69,3 +71,11 @@ class func
         res.send 'something error'
     @send404: (res)->
         # @todo send404
+    @md5: (str)->
+        crypto.createHash('md5').update(str.toString()).digest('hex')
+    @genPwd: (plainPwd, salt = '')->
+        @md5(plainPwd + salt).substr 7,20
+    @genSalt: ()->
+        @md5(Math.random()).substr 7,6
+    @genCookieVerify: (user)->
+        @md5(user.name.toString() + user.salt.toString()).substr 7, 16

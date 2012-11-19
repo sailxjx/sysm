@@ -1,5 +1,5 @@
 func = require "lib/func"
-user = require "lib/user"
+libUser = require "lib/user"
 
 module.exports = 
 class controller
@@ -14,9 +14,8 @@ class controller
         @res.send 'app running'
     before: () =>
         _this = this
-        user.authCheck _this.req, _this.res, (userInfo)->
-            if func.empty userInfo
+        libUser.authCheck _this.req, _this.res, (err, replys)->
+            if err?
                 func.applyCtrl 'login', _this.req, _this.res, 'render'
             else
-                _this.req.userInfo = userInfo
                 _this.render()

@@ -3,7 +3,7 @@ url = require "url"
 func = require "lib/func"
 reqmq = require "lib/reqmq"
 db = require "lib/db"
-rc = db.loadRedis 'redisPub'
+rc = db.loadRedis()
 spub = require "lib/spub"
 
 module.exports = 
@@ -15,9 +15,9 @@ class api extends controller
         else
             @errReply 'error', 'could not find the called api action'
     startjob: ->
-        cmd = this.req.query.cmd
-        if cmd
-            this.res.send func.errReply 'error', 'missing cmd params'
+        cmd = @req.query.cmd
+        if func.empty cmd
+            @errReply 'error', 'missing cmd params'
             return false
         else
             oReqmq = new reqmq()
@@ -37,3 +37,20 @@ class api extends controller
         this.res.send func.errReply data, msg
     succReply: (data, msg='succ')=>
         this.res.send func.succReply data, msg
+    reg: ->
+        user = @req.query.user
+        if user.pwd != user.pwdrepeat || func.empty user.pwd
+            @errReply 'error', 'password error'
+            return false
+        salt = func.genSalt()
+        userData =
+            name: user.name
+            pwd: func.genPwd user.pwd, salt
+            salt: salt
+        _this = this
+        rc.hmset "user:#{userData.name}", userData, (err, replys)->
+            console.log err if err?
+            if err?
+                _this.errReply replys, 'reg fail'
+            else
+                _this.succReply replys, 'reg succ'

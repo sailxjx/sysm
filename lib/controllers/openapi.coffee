@@ -2,6 +2,7 @@ controller = require "lib/controllers/controller"
 func = require "lib/func"
 db = require 'lib/db'
 rc = db.loadRedis()
+libUser = require 'lib/user'
 
 module.exports = 
 class openapi extends controller
@@ -21,12 +22,11 @@ class openapi extends controller
             @errReply 'error', "called the invalid action [ #{action} ]"
         else
             @render()
-    reg: ->
-        user = @req.query.user
-        console.log user
-        _this = this
-        rc.hmset "user:#{user.name}", user, (err, replys)->
-            console.log err if err?
-            _this.succReply replys, 'reg succ'
     login: ->
-        @succReply()
+        user = @req.query.user
+        _this = this
+        libUser.login @req, @res, user, (err, replys)->
+            if err?
+                _this.errReply null, 'login fail'
+            else
+                _this.succReply null, 'login succ'
