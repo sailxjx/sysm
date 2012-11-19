@@ -20,6 +20,11 @@ projects =
         vcs: 'git'
         url: 'git@192.168.100.54:sysd.git'
         dir: '/usr/local/webdata/sysd'
+    quan:
+        pname: 'quan'
+        vcs: 'svn'
+        url: 'svn://192.168.0.178/quan'
+        dir: '/usr/local/webdata/quan'
 
 # 研发, 外测1, 外测2, 预发布, 生产, rbac, passport
 targets =
@@ -30,47 +35,49 @@ targets =
             'tristan@192.168.1.109': [22]
         gbr: null
         sbr: null
-    alpha1:
-        name: '外测1'
-        ssh:
-            '116.213.143.3': [15222]
-        gbr: 'beta'
-        sbr: 'trunk'
-    alpha2:
-        name: '外测2'
-        ssh: 
-            '116.213.143.3': [22222]
-        gbr: 'beta'
-        sbr: 'trunk'
-    beta:
-        name: '预发布'
-        ssh: 
-            '116.213.143.3': [15122, 15522, 15322, 15422, 15622, 15722]
-        gbr: 'product'
-        sbr: 'release'
-    product:
-        name: '生产'
-        ssh: 
-            '116.213.143.3': [15122, 15522, 15322, 15422, 15622, 15722]
-        gbr: 'product'
-        sbr: 'release'
-    rbac:
-        name: 'rbac'
-        ssh:
-            '116.213.143.3': [15922]
-        gbr: 'product'
-        sbr: 'release'
-    passport:
-        name: 'passport'
-        ssh:
-            '116.213.143.3': [19222, 19322, 19422, 19522]
-        gbr: 'product'
-        sbr: 'release'
+    # alpha1:
+    #     name: '外测1'
+    #     ssh:
+    #         '116.213.143.3': [15222]
+    #     gbr: 'beta'
+    #     sbr: 'trunk'
+    # alpha2:
+    #     name: '外测2'
+    #     ssh: 
+    #         '116.213.143.3': [22222]
+    #     gbr: 'beta'
+    #     sbr: 'trunk'
+    # beta:
+    #     name: '预发布'
+    #     ssh: 
+    #         '116.213.143.3': [15122, 15522, 15322, 15422, 15622, 15722]
+    #     gbr: 'product'
+    #     sbr: 'release'
+    # product:
+    #     name: '生产'
+    #     ssh: 
+    #         '116.213.143.3': [15122, 15522, 15322, 15422, 15622, 15722]
+    #     gbr: 'product'
+    #     sbr: 'release'
+    # rbac:
+    #     name: 'rbac'
+    #     ssh:
+    #         '116.213.143.3': [15922]
+    #     gbr: 'product'
+    #     sbr: 'release'
+    # passport:
+    #     name: 'passport'
+    #     ssh:
+    #         '116.213.143.3': [19222, 19322, 19422, 19522]
+    #     gbr: 'product'
+    #     sbr: 'release'
 
 console.log 'begin';
 console.log projects
 console.log targets
 rc = db.loadRedis 'redisPub'
+rc.del('publish:projects')
+rc.del('publish:targets')
 rm = rc.multi()
 for pname of projects
     rm.hset 'publish:projects', pname, JSON.stringify projects[pname]

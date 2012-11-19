@@ -4,9 +4,10 @@ colors = require 'colors'
 fs = require 'fs'
 func = require "lib/func"
 db = require "lib/db"
-rc = db.loadRedis('redisPub')
+rc = db.loadRedis 'redisPub'
 
-exports.spub = (params, callback)->
+module.exports =
+spub = (params, callback)->
     pubData =
         prefix: '/tmp/pub/'
         username: 'hudson'
@@ -205,5 +206,4 @@ exports.spub = (params, callback)->
                 url = "#{project.url}/release/"
             url
         stepIn()
-
     pubInit()
