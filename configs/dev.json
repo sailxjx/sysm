@@ -21,13 +21,13 @@
     "sockDomain": "http://127.0.0.1:3001",
     "boards": [
         {
-            "name": "jobsum",
-            "size": "small",
-            "target": "joblist"
-        },
-        {
             "name": "mailsum",
-            "size": "medium"
+            "size": "medium",
+            "target": "mailtemp"
+        }
+        {
+            "name": "mailchannels",
+            "size": "small"
         }
     ]
 }
