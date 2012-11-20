@@ -67,7 +67,11 @@ class sc.mailchannels
         oReqmq = new reqmq()
         oReqmq.send('getMailChannels').reply (reply)->
             reply = JSON.parse reply.toString()
+            mailChannels = {}
+            if !func.empty(reply.data)
+                for i of reply.data
+                    mailChannels[i] = JSON.parse reply.data[i]
             data = 
-                mailChannels: reply.data
+                mailChannels: mailChannels
                 boardTitle: 'Mail Channels'
             callback data

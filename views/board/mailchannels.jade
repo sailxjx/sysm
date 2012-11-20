@@ -1,0 +1,23 @@
+extends ../board
+block board
+    div.mail-channels
+        table.table.table-striped
+            thead
+                tr
+                    th Channel
+                    th Rank
+                    th Template
+                    th Command
+            tbody
+                - for(var i in mailChannels){
+                tr
+                    td #{i}
+                    td #{mailChannels[i].score}
+                    td #{mailChannels[i].temp}
+                    td
+                        - if(parseInt(mailChannels[i].score) <= 0){
+                        button.btn.btn-danger.btn-small.mc-ctrl Up
+                        - } else {
+                        button.btn.btn-small.mc-ctrl Down
+                        - }
+                - }

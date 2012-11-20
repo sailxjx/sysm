@@ -24,10 +24,10 @@
             "name": "mailsum",
             "size": "medium",
             "target": "mailtemp"
-        }
+        },
         {
             "name": "mailchannels",
-            "size": "small"
+            "size": "medium"
         }
     ]
 }

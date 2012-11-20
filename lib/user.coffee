@@ -5,8 +5,8 @@ rc = db.loadRedis()
 exports.authCheck = (req, res, callback)->
     username = func.getCookie req, 'username'
     cookieVerify = func.getCookie req, 'cookieverify'
-    if func.empty username
-        callback 'username not exist', null
+    if func.empty(username) || func.empty(cookieVerify)
+        callback 'username or cookieverify not exist', null
     else
         rc.hget "user:#{username}", 'salt', (err, replys)->
             if err?
