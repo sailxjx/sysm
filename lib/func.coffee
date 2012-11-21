@@ -34,10 +34,10 @@ class func
             env = process.env.NODE_ENV
             env = 'dev' if @empty env
             try
-                @configs = require "configs/#{env}.json"
+                @configs = require "configs/#{env}"
             catch e
                 throw "error: called config [ #{env} ] not found! "
-        @configs
+        @clone @configs
     @tsToDate: (timestamp, format = 'yyyy-MM-dd hh:mm:ss')->
         oDate = new Date(timestamp * 1000)
         oDate.format(format)
@@ -63,8 +63,9 @@ class func
         false
     @setCookie: (res, name, value)->
         cookieConf = @getConf 'cookie'
-        cookieConf.expires = new Date(Date.now() + cookieConf.expires * 1000)
-        res.cookie name, value, cookieConf
+        confTmp = cookieConf
+        confTmp.expires = new Date(Date.now() + cookieConf.expires * 1000)
+        res.cookie name, value, confTmp
     @getCookie: (req, name)->
         if @empty req.cookies[name] then return null else return req.cookies[name]
     @send500: (res)->
@@ -83,3 +84,5 @@ class func
         if @empty(user.salt) || @empty(user.name)
             return false
         @md5(user.name.toString() + user.salt.toString()).substr 7, 16
+    @clone: (obj)->
+        JSON.parse(JSON.stringify(obj))
