@@ -21,12 +21,15 @@
     "sockDomain": "http://127.0.0.1:3001",
     "boards": [
         {
-            "name": "mailsum",
-            "size": "medium",
-            "target": "mailtemp"
+            "name": "mailchannels",
+            "size": "medium"
         },
         {
-            "name": "mailchannels",
+            "name": "mailsum",
+            "size": "medium"
+        },        
+        {
+            "name": "mailtemplates",
             "size": "medium"
         }
     ]

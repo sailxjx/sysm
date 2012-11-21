@@ -62,6 +62,7 @@ class sc.mailsum
                 boardTitle: 'Mail Summary'
             callback data
 
+# get mail channels
 class sc.mailchannels
     render: (callback)->
         oReqmq = new reqmq()
@@ -74,4 +75,15 @@ class sc.mailchannels
             data = 
                 mailChannels: mailChannels
                 boardTitle: 'Mail Channels'
+            callback data
+
+# get mail templates
+class sc.mailtemplates
+    render: (callback)->
+        oReqmq = new reqmq()
+        oReqmq.send('getMailTempSum').reply (reply)->
+            reply = JSON.parse reply.toString()
+            data = 
+                mailTemplates: reply.data
+                boardTitle: 'Mail Templates'
             callback data
