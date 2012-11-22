@@ -6,6 +6,6 @@ class index extends controller
     render: () ->
         boards = func.getConf 'boards'
         for board in boards
-            if board.size == undefined then board.size = 'small'
+            if board.size == undefined then board.size = 'medium'
         @data.boards = boards
         @res.render 'index', @data

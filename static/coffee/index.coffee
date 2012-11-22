@@ -1,14 +1,15 @@
 getBoardUrl = (name)->
     "/board/#{name}"
 
-popen = (url)->
+popen = (url, callback)->
     $('#popback').show()
     $('#popen').fadeIn 100, ()->
         $(this).animate {
-            'width': '80%',
-            'margin-left': '-40%'
+            'width': '90%',
+            'margin-left': '-45%'
         }, 300, ()->
-            $(this).load url
+            $(this).load url, ()->
+                callback()
 
 # bind events on boards
 $('.board').each ()->
@@ -19,20 +20,31 @@ $('.board').each ()->
         if !$(this).attr 'target-url'
             $(this).attr 'target-url', bUrl
     $(this).mouseenter ()->
-        if $(this).hasClass 'bp'
+        if $(this).hasClass 'boardpopen'
             $(this).addClass 'board-hover'
     $(this).mouseleave ()->
         $(this).removeClass 'board-hover'
 
-# bind events on bp
-$('.bp').click ()->
-    if tUrl = $(this).attr 'target-url'
-        popen tUrl
+ckMailEditor = null;
+targetCallback =
+    mailtempedit: ()->
+        if ckMailEditor?
+            ckMailEditor.destroy true
+            ckMailEditor = null
+        ckMailEditor = CKEDITOR.replace 'maileditor', { "height": 600 }
 
 # bind events on
+# boardpopen
 # popback
 # addJob
-$(document).on('click','#popback', (e)->
+$(document).on('click', '.boardpopen', (e)->
+    if tUrl = $(this).attr 'target-url'
+        [callbackName, tmpParams] = tUrl.split('/').pop().split('?')
+        if targetCallback[callbackName]?
+            popen tUrl, targetCallback[callbackName]
+        else
+            popen tUrl
+).on('click','#popback', (e)->
     if e.target.id == 'popback'
         $('#popen').children('.bcon').fadeOut()
         $('#popen').css({
@@ -61,3 +73,9 @@ $(document).on('click','#popback', (e)->
     if e.which == 13
         $('#cmdAdd').trigger 'click'
 )
+
+$(window).load ()->
+    setTimeout (->
+        $('#container').masonry {
+            itemSelector: '.board'
+        }), 100

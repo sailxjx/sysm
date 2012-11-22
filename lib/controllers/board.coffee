@@ -7,10 +7,10 @@ sc = {} # sub controllers
 module.exports =
 class board extends controller
     render: ->
-        this.boardName = this.req.params.name
-        this.data.boardTitle = 'board'
+        @boardName = @req.params.name
+        @data.boardTitle = 'board'
         if sc[this.boardName]
-            subCtrl = new sc[this.boardName]
+            subCtrl = new sc[this.boardName] @req, @res
             subCtrl.render this.loadBoard
         else
             this.loadBoard()
@@ -23,8 +23,13 @@ class board extends controller
             console.log e
             @res.send "sorry: called board [ board/#{@boardName} ] not found"
 
+class scbase
+    constructor: (req, res)->
+        @req = req
+        @res = res
+
 # get job status
-class sc.joblist
+class sc.joblist extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getJobList').reply (reply)->
@@ -41,7 +46,7 @@ class sc.joblist
             callback data
 
 # get job summary
-class sc.jobsum
+class sc.jobsum extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getJobSum').reply (reply)->
@@ -52,7 +57,7 @@ class sc.jobsum
             callback data
 
 # get mail summary
-class sc.mailsum
+class sc.mailsum extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailSum').reply (reply)->
@@ -63,7 +68,7 @@ class sc.mailsum
             callback data
 
 # get mail channels
-class sc.mailchannels
+class sc.mailchannels extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailChannels').reply (reply)->
@@ -78,7 +83,7 @@ class sc.mailchannels
             callback data
 
 # get mail templates
-class sc.mailtemplates
+class sc.mailtemplates extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailTempSum').reply (reply)->
@@ -86,4 +91,18 @@ class sc.mailtemplates
             data = 
                 mailTemplates: reply.data
                 boardTitle: 'Mail Templates'
+            callback data
+
+class sc.mailtempedit extends scbase
+    render: (callback)->
+        mailname = @req.query.mailname
+        oReqmq = new reqmq()
+        oReqmq.send('getMailTemp', {
+            name: mailname
+            }).reply (reply)->
+            reply = JSON.parse reply.toString()
+            reply.data = {} if func.empty reply.data
+            data =
+                mailTemplate: reply.data
+                boardTitle: 'Mail Template Editor'
             callback data

@@ -4,15 +4,16 @@ block board
         table.table.table-striped
             thead
                 tr
-                    th Id
                     th Name
                     th Webpower Id
                     th Create Time
+                    th Control
             tbody
                 - for(var i in mailTemplates){
                 tr
-                    td #{mailTemplates[i].id}
                     td #{mailTemplates[i].name}
                     td #{mailTemplates[i].webpowerid}
                     td #{mailTemplates[i].ctime}
+                    td
+                        button.btn.btn-small.boardpopen(target-url="/board/mailtempedit?mailname=#{mailTemplates[i].name}") Edit
                 - }
