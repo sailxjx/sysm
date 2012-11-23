@@ -18,4 +18,5 @@ getRealDir() {
 }
 
 BASEDIR=$(dirname $(getRealDir $0))
+NODE_ENV=dev
 export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && coffee $1

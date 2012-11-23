@@ -1,3 +1,24 @@
+root = exports ? this
+# bind events on boards
+root.boardReload = (attrs = {})->
+    $('.board').each ->
+        $this= $(this)
+        reloadFlag = true
+        for i of attrs
+            if $this.attr(i) != attrs[i]
+                reloadFlag = false
+        if reloadFlag
+            bUrl = getBoardUrl $this.attr 'board'
+            $this.load bUrl
+
+boardHover = ->
+    $('.board').each ->
+        $this = $(this)
+        $this.mouseenter ->
+            $this.addClass 'board-hover'
+        $this.mouseleave ->
+            $this.removeClass 'board-hover'
+
 getBoardUrl = (name)->
     "/board/#{name}"
 
@@ -12,19 +33,8 @@ popen = (url, callback)->
                 if callback?
                     callback()
 
-# bind events on boards
-$('.board').each ()->
-    bd = $(this).attr 'board'
-    if bd
-        bUrl = getBoardUrl $(this).attr 'board'
-        $(this).load bUrl
-        if !$(this).attr 'target-url'
-            $(this).attr 'target-url', bUrl
-    $(this).mouseenter ()->
-        if $(this).hasClass 'boardpopen'
-            $(this).addClass 'board-hover'
-    $(this).mouseleave ()->
-        $(this).removeClass 'board-hover'
+boardReload()
+boardHover()
 
 ckMailEditor = null;
 targetCallback =

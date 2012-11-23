@@ -5,6 +5,9 @@ $('#mailTempFrom').ajaxForm {
         $msgline = $('.msgline')
         if data.status == 1
             $msgline.html(data.msg).removeClass('text-error').addClass 'text-success'
+            boardReload {
+                board: 'mailtemplates'
+            }
         else
             $msgline.html(data.msg).removeClass('text-success').addClass 'text-error'
         $msgline.fadeIn 200, ->
