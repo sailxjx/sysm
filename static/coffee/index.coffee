@@ -9,7 +9,8 @@ popen = (url, callback)->
             'margin-left': '-45%'
         }, 300, ()->
             $(this).load url, ()->
-                callback()
+                if callback?
+                    callback()
 
 # bind events on boards
 $('.board').each ()->
@@ -31,7 +32,7 @@ targetCallback =
         if ckMailEditor?
             ckMailEditor.destroy true
             ckMailEditor = null
-        ckMailEditor = CKEDITOR.replace 'maileditor', { "height": 600 }
+        ckMailEditor = CKEDITOR.replace 'maileditor', { "height": 500 }
 
 # bind events on
 # boardpopen
@@ -40,7 +41,7 @@ targetCallback =
 $(document).on('click', '.boardpopen', (e)->
     if tUrl = $(this).attr 'target-url'
         [callbackName, tmpParams] = tUrl.split('/').pop().split('?')
-        if targetCallback[callbackName]?
+        if targetCallback[callbackName]? && typeof targetCallback[callbackName] != "undefined"
             popen tUrl, targetCallback[callbackName]
         else
             popen tUrl

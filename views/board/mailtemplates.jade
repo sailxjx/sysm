@@ -6,14 +6,20 @@ block board
                 tr
                     th Name
                     th Webpower Id
-                    th Create Time
+                    th Update Time
                     th Control
             tbody
                 - for(var i in mailTemplates){
                 tr
                     td #{mailTemplates[i].name}
                     td #{mailTemplates[i].webpowerid}
-                    td #{mailTemplates[i].ctime}
+                    td #{mailTemplates[i].utime}
                     td
                         button.btn.btn-small.boardpopen(target-url="/board/mailtempedit?mailname=#{mailTemplates[i].name}") Edit
                 - }
+                tr
+                    td
+                        button.btn.btn-primary.btn-small.boardpopen(target-url="/board/mailtempedit") Add New One
+                    td
+                    td
+                    td

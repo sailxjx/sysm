@@ -10,14 +10,41 @@ block board
                     th Command
             tbody
                 - for(var i in mailChannels) {
-                tr
-                    td #{i}
-                    td #{mailChannels[i].score}
-                    td #{mailChannels[i].temp}
+                -   var trClass;
+                -   if(parseInt(mailChannels[i].score) <= 0){
+                -       trClass = 'error';
+                -   } else {
+                -       trClass = '';
+                -   }
+                tr(class="#{trClass}")
                     td
-                        - if(parseInt(mailChannels[i].score) <= 0){
-                        button.btn.btn-danger.btn-small.mc-ctrl Up
-                        - } else {
-                        button.btn.btn-small.mc-ctrl Down
-                        - }
+                        input.span2.data(type="text", value="#{i}", name="name", readonly, required)
+                    td
+                        input.span1.data(type="text", value="#{mailChannels[i].score}", name="score", required)
+                    td
+                        select.chzn-select.data.mail-channel-temp.span2(name="temp")
+                            - if(mailChannels[i].temp == 'local') {
+                            option(value="local", selected) local
+                            option(value="remote") remote
+                            - }else{
+                            option(value="local") local
+                            option(value="remote", selected) remote
+                            - }
+                    td
+                        div.btn-group
+                            button.btn.btn-small.mc-ctrl Edit
+                            button.btn.btn-danger.btn-small.mc-ctrl.mc-delete Delete
                 - }
+                tr
+                    td
+                        input.span2.data(type="text", name="name", required)
+                    td
+                        input.span1.data(type="text", name="score", required)
+                    td
+                        select.chzn-select.data.mail-channel-temp.span2(name="temp")
+                            option(value="local", selected) local
+                            option(value="remote") remote
+                    td
+                        div.btn-group
+                            button.btn-primary.btn.btn-small.mc-ctrl Add
+    script(src='/js/board/mailchannels.js')

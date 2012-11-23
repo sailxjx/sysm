@@ -26,6 +26,7 @@ app.get '/admin/:controller/:action/?', routes.admin
 app.get '/pub/?', routes.publish
 app.get '/board/:name/?', routes.default
 app.get '/api/:action/?', routes.default
+app.post '/api/:method/:action/?', routes.default
 app.get '/openapi/:action/?', routes.default
 app.get '/url/(:surl)?', routes.default
 

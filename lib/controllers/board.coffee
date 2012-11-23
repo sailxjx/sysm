@@ -7,10 +7,10 @@ sc = {} # sub controllers
 module.exports =
 class board extends controller
     render: ->
-        @boardName = @req.params.name
+        @data.boardName = @req.params.name
         @data.boardTitle = 'board'
-        if sc[this.boardName]
-            subCtrl = new sc[this.boardName] @req, @res
+        if sc[@data.boardName]
+            subCtrl = new sc[@data.boardName] @req, @res
             subCtrl.render this.loadBoard
         else
             this.loadBoard()
@@ -18,10 +18,10 @@ class board extends controller
         for i of data
             @data[i] = data[i]
         try
-            @res.render "board/#{@boardName}", @data
+            @res.render "board/#{@data.boardName}", @data
         catch e
             console.log e
-            @res.send "sorry: called board [ board/#{@boardName} ] not found"
+            @res.send "sorry: called board [ board/#{@data.boardName} ] not found"
 
 class scbase
     constructor: (req, res)->
@@ -33,7 +33,6 @@ class sc.joblist extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getJobList').reply (reply)->
-            reply = JSON.parse reply.toString()
             data =
                 boardTitle: 'Job List'
             if reply.status == 1
@@ -50,7 +49,6 @@ class sc.jobsum extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getJobSum').reply (reply)->
-            reply = JSON.parse reply.toString()
             data = 
                 boardTitle: 'Job Summary'
                 jobNum: reply.data
@@ -61,7 +59,6 @@ class sc.mailsum extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailSum').reply (reply)->
-            reply = JSON.parse reply.toString()
             data = 
                 mailSum: reply.data
                 boardTitle: 'Mail Summary'
@@ -72,7 +69,6 @@ class sc.mailchannels extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailChannels').reply (reply)->
-            reply = JSON.parse reply.toString()
             mailChannels = {}
             if !func.empty(reply.data)
                 for i of reply.data
@@ -87,7 +83,8 @@ class sc.mailtemplates extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailTempSum').reply (reply)->
-            reply = JSON.parse reply.toString()
+            for i in reply.data
+                i.utime = func.tsToDate i.utime
             data = 
                 mailTemplates: reply.data
                 boardTitle: 'Mail Templates'
@@ -96,13 +93,21 @@ class sc.mailtemplates extends scbase
 class sc.mailtempedit extends scbase
     render: (callback)->
         mailname = @req.query.mailname
-        oReqmq = new reqmq()
-        oReqmq.send('getMailTemp', {
-            name: mailname
-            }).reply (reply)->
-            reply = JSON.parse reply.toString()
-            reply.data = {} if func.empty reply.data
+        boardTitle = 'Mail Template Editor'
+        if func.empty mailname
             data =
-                mailTemplate: reply.data
-                boardTitle: 'Mail Template Editor'
+                mailTemplates: null
+                boardTitle: boardTitle
+                boardName: 'mailtempadd'
             callback data
+        else
+            oReqmq = new reqmq()
+            oReqmq.send('getMailTemp', {
+                name: mailname
+                }).reply (reply)->
+                reply.data = {} if func.empty reply.data
+                reply.data.webpowerid = '' if func.empty(reply.data.webpowerid)
+                data =
+                    mailTemplate: reply.data
+                    boardTitle: boardTitle
+                callback data

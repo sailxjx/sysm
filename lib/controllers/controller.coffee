@@ -7,7 +7,7 @@ class controller
         @req = req
         @res = res
         @data = {
-            title: 'System Backyard - "SB" for short?'
+            title: 'System Backyard'
             baseDomain: func.getConf 'baseDomain'
         }
     render: () =>

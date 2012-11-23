@@ -9,7 +9,7 @@ spub = require "lib/spub"
 module.exports = 
 class api extends controller
     render: =>
-        action = this.req.params.action
+        action = @req.params.action
         if this[action]
             this[action]()
         else
@@ -34,9 +34,9 @@ class api extends controller
             else
                 _this.succReply data, 'success: project has been successfully published.'
     errReply: (data, msg='error')=>
-        this.res.send func.errReply data, msg
+        @res.send func.errReply data, msg
     succReply: (data, msg='succ')=>
-        this.res.send func.succReply data, msg
+        @res.send func.succReply data, msg
     reg: ->
         user = @req.query.user
         if user.pwd != user.pwdrepeat || func.empty user.pwd
@@ -54,3 +54,18 @@ class api extends controller
                 _this.errReply replys, 'reg fail'
             else
                 _this.succReply replys, 'reg succ'
+    mailtempedit: ()->
+        method = @req.params.method
+        _this = this
+        if method != 'post'
+            _this.errReply @req.params, 'api method error!'
+        if func.empty @req.body.name
+            _this.errReply @req.body, 'mail name should not be empty!'
+        oReqmq = new reqmq()
+        oReqmq.send('setMailTemp', @req.body).reply (reply)->
+            _this.res.send reply
+    mailchanneledit: ()->
+        _this = this
+        oReqmq = new reqmq()
+        oReqmq.send('setMailService', @req.query).reply (reply)->
+            _this.res.send reply

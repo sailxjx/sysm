@@ -5,14 +5,6 @@
     min-height: 1000px;
     background: $c_white;
     float: left;
-    table {
-        td {
-            vertical-align: middle;
-            select, input {
-                margin: 0;
-            }
-        }
-    }
 }
 .right-log {
     width: 45%;
@@ -21,15 +13,4 @@
     pre {
         min-height: 1000px;
     }
-}
-.msgline {
-    position: fixed;
-    bottom: 0;
-    height: 20px;
-    background: rgba(230, 230, 230, 0.8);
-    width: 100%;
-    margin: 0;
-    padding: 7px;
-    font-size: 18px;
-    display: none;
 }

@@ -21,5 +21,6 @@ class reqmq
     reply: (callback)->
         oSock = this.getSock()
         oSock.on 'message', (data)->
+            data = JSON.parse data.toString()
             oSock.close()
             callback data

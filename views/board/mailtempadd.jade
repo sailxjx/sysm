@@ -1,0 +1,16 @@
+extends ../board
+block board
+    form#mailTempFrom.form-horizontal(method="post", action="/api/post/mailtempedit")
+        div.control-group
+            label.control-label(for="inputMailTempName") MailTempName
+            div.controls
+                input#inputMailTempName(type="text", placeholder="MailTempName", name="name")
+        div.control-group
+            label.control-label(for="inputWebPowerId") WebPowerId
+            div.controls
+                input#inputWebPowerId(type="text", placeholder="WebPowerId", name="webpowerid")
+        textarea#maileditor.maileditor(name="temp", cols="80", rows="200")
+        input#mailEditAction(type="hidden", name="action", value="add")
+        div.btn-group.div-mailtempedit
+            button.btn.btn-primary.mail-temp-edit(type="submit") Add
+    script(src="/js/board/maileditor.js")
