@@ -111,3 +111,9 @@ class sc.mailtempedit extends scbase
                     mailTemplate: reply.data
                     boardTitle: boardTitle
                 callback data
+
+class sc.heartbeatconfigs extends scbase
+    render: (callback)->
+        callback {
+            boardTitle: 'Heartbeat Configs - 目前仅支持163邮箱'
+        }
