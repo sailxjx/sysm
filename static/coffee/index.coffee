@@ -44,6 +44,10 @@ targetCallback =
             ckMailEditor = null
         ckMailEditor = CKEDITOR.replace 'maileditor', { "height": 500 }
 
+$(".chzn-select").chosen {
+    no_results_text: "No results matched"
+}
+
 # bind events on
 # boardpopen
 # popback
