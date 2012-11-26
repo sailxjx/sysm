@@ -93,4 +93,4 @@ $(window).load ()->
     setTimeout (->
         $('#container').masonry {
             itemSelector: '.board'
-        }), 100
+        }), 200
