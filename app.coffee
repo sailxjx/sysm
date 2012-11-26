@@ -29,6 +29,7 @@ app.get '/api/:action/?', routes.default
 app.post '/api/:method/:action/?', routes.default
 app.get '/openapi/:action/?', routes.default
 app.get '/url/(:surl)?', routes.default
+app.get '/ops/?', routes.default
 
 server = http.createServer(app)
 server.listen app.get('port'), ()->

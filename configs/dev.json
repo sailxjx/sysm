@@ -28,6 +28,9 @@
         },        
         {
             "name": "mailtemplates"
+        },
+        {
+            "name": "heartbeatconfigs"
         }
     ]
 }

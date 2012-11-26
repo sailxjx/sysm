@@ -5,13 +5,16 @@ block content
     div#popback.popback
         div#popen.popen
     div#container.container
+        - if(boards == null){
+        h1 Welcome!
+        - }else{
         - for(var i in boards) {
         -   if (boards[i].target) {
         div(class="board boardpopen board-#{boards[i].size}", board="#{boards[i].name}", target-url="/board/#{boards[i].target}")
         -   }else{
         div(class="board board-#{boards[i].size}", board="#{boards[i].name}")
         -   }
-        - }
+        - }}
     p.msgline 
 block script
     script(src='/libjs/jquery.masonry.min.js')

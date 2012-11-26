@@ -4,9 +4,17 @@ block board
         table.table.table-striped
             thead
                 tr
-                    th MailBox
-                    th Template
+                    th Address
+                    th Server
+                    th Port
+                    th User
+                    th Pass
             tbody
+                - for(var i in hbConfigs) {
                 tr
-                    td heartbeat51fanli@163.com
-                    td.orange Undefined
+                    td #{i}
+                    td #{hbConfigs[i]['server']}
+                    td #{hbConfigs[i]['port']}
+                    td #{hbConfigs[i]['user']}
+                    td #{hbConfigs[i]['pass']}
+                - }

@@ -114,6 +114,10 @@ class sc.mailtempedit extends scbase
 
 class sc.heartbeatconfigs extends scbase
     render: (callback)->
-        callback {
-            boardTitle: 'Heartbeat Configs - 目前仅支持163邮箱'
-        }
+        oReqmq = new reqmq()
+        oReqmq.send('getHbConfigs').reply (reply)->
+            reply.data = {} if func.empty reply.data
+            data =
+                boardTitle: 'Heartbeat Configs'
+                hbConfigs: reply.data
+            callback data

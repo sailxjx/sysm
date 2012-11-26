@@ -6,7 +6,6 @@ users = [
         name: 'sailxjx'
         pwd: '123456'
         role: 'admin'
-        index: 'mail'
     }
     {
         name: 'dev'
@@ -15,6 +14,13 @@ users = [
     {
         name: 'admin'
         pwd: '123456'
+        role: 'admin'
+    }
+    {
+        name: 'ops',
+        pwd: '123456'
+        role: 'ops'
+        index: ''
     }
 ]
 

@@ -4,6 +4,7 @@ libUser = require "lib/user"
 module.exports = 
 class controller
     constructor: (req, res)->
+        req.dbData = {}
         @req = req
         @res = res
         @data = {
@@ -18,4 +19,5 @@ class controller
             if err?
                 func.applyCtrl 'login', _this.req, _this.res, 'render'
             else
+                _this.req.dbData.user = replys
                 _this.render()

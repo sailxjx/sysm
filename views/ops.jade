@@ -1,0 +1,9 @@
+extends layout
+block stylesheet
+    link(href="/css/index.css", rel="stylesheet")
+block content
+    div.container
+        h3 Sysd Version: #{version.sysd}
+        h3 Sysm Version: #{version.sysm}
+block script
+    script(src="/libjs/jquery.form.js")
