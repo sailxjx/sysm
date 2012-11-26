@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 getRealDir() {
     local REAL_DIR ORI_LINK_DIR BASE_FILE_DIR LINK_FILE
@@ -32,6 +32,7 @@ step3() {
     export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && coffee $BASEDIR/app
 }
 
+PATH=$PATH:/usr/bin:/usr/local/bin
 BASEDIR=$(dirname $(getRealDir $0))
 NODE_ENV="dev"
 
@@ -42,18 +43,13 @@ case "$1" in
         echo "step3: start app"
         echo "usage: deploy [1|2|3]"
         ;;
-    '')
-        step1
-        step2
-        step3
-        ;;
     1|2|3)
         step$1
         ;;
     *)
-        echo "please enter the correct step"
-        echo "usage: deploy [1|2|3]"
-        exit 1
+        step1
+        step2
+        step3
         ;;
 esac
 

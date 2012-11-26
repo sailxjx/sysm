@@ -12,6 +12,10 @@ users = [
         name: 'dev'
         pwd: '123456'
     }
+    {
+        name: 'admin'
+        pwd: '123456'
+    }
 ]
 
 console.log 'begin'
