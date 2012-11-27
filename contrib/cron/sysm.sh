@@ -44,6 +44,7 @@ case $ACTION in
         echo "export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && nohup coffee $BASEDIR/app >> $LOG_FILE 2>&1 &"
         export NODE_PATH=$BASEDIR
         export NODE_ENV=$NODE_ENV
+        export LD_LIBRARY_PATH=/usr/local/lib
         coffee $BASEDIR/app >> $LOG_FILE 2>&1 &
         if [[ $? == 0 ]]; then
             echo $! > $PID_FILE

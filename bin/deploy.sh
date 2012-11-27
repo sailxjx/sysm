@@ -29,7 +29,10 @@ step2() {
 
 step3() {
     echo "step3: start app"
-    export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && coffee $BASEDIR/app
+    export NODE_PATH=$BASEDIR
+    export NODE_ENV=$NODE_ENV
+    export LD_LIBRARY_PATH=/usr/local/lib
+    coffee $BASEDIR/app
 }
 
 PATH=$PATH:/usr/bin:/usr/local/bin
