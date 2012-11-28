@@ -93,9 +93,3 @@ $(document).on('click', '.boardpopen', (e)->
     if e.which == 13
         $('#cmdAdd').trigger 'click'
 )
-
-# $(window).load ()->
-#     setTimeout (->
-#         $('#container').masonry {
-#             itemSelector: '.board'
-#         }), 200

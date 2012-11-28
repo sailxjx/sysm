@@ -11,8 +11,10 @@ $('.mc-ctrl').click (e)->
         formName = $(this).attr('name')
         if formName != null && typeof formName != "undefined"
             mailChannels[formName] = $(this).val()
+    d = new Date()
+    t = d.getTime()
     $.ajax {
-        url: '/api/mailchanneledit',
+        url: '/api/mailchanneledit?t='+t,
         data: mailChannels,
         dataType: 'json',
         method: 'get',
