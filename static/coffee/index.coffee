@@ -9,7 +9,12 @@ root.boardReload = (attrs = {})->
                 reloadFlag = false
         if reloadFlag
             bUrl = getBoardUrl $this.attr 'board'
-            $this.load bUrl
+            $this.load bUrl, waterfall
+
+waterfall = ->
+    $('#container').masonry {
+            itemSelector: '.board'
+        }
 
 boardHover = ->
     $('.board').each ->
@@ -89,8 +94,8 @@ $(document).on('click', '.boardpopen', (e)->
         $('#cmdAdd').trigger 'click'
 )
 
-$(window).load ()->
-    setTimeout (->
-        $('#container').masonry {
-            itemSelector: '.board'
-        }), 200
+# $(window).load ()->
+#     setTimeout (->
+#         $('#container').masonry {
+#             itemSelector: '.board'
+#         }), 200
