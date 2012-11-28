@@ -1,24 +1,23 @@
 extends ../board
 block board
     form#mailTempFrom.form-horizontal(method="post", action="/api/post/mailtempedit")
-        div.control-group
-            label.control-label(for="inputMailTempName") MailTempName
-            div.controls
-                input#inputMailTempName(type="text", placeholder="MailTempName", name="name", value="#{mailTemplate.name}", readonly)
-        div.control-group
-            label.control-label(for="inputWebPowerId") WebPowerId
-            div.controls
-                input#inputWebPowerId(type="text", placeholder="WebPowerId", name="webpowerid", value="#{mailTemplate.webpowerid}")
-                span.example 示例:2,96,958 (活动id，分组id，邮件id)
-        div.control-group
-            label.control-label(for="inputDesc") Desc
-            div.controls
-                - if(typeof mailTemplate.desc == "undefined") {
-                -   mailDesc = '';
-                - }else{
-                -   mailDesc = mailTemplate.desc;
-                - }
-                input#inputDesc(type="text", placeholder="desc", name="desc", value="#{mailDesc}")
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th WebPowerId
+                    th Desc
+                    th Title
+                tbody
+                    tr
+                        td
+                            input(type="text", placeholder="MailTempName", name="name", value="#{mailTemplate.name}", readonly)
+                        td
+                            input(type="text", placeholder="示例:2,96,958 (活动id，分组id，邮件id)", name="webpowerid", value="#{mailTemplate.webpowerid}")            
+                        td
+                            input(type="text", placeholder="desc", name="desc", value="#{mailTemplate.desc}")
+                        td
+                            input(type="text", placeholder="Title", name="title", value="#{mailTemplate.title}")            
         textarea#maileditor.maileditor(name="temp", cols="80", rows="200") #{mailTemplate.temp}
         input#mailEditAction(type="hidden", name="action", value="edit")
         div.btn-group.div-mailtempedit

@@ -11,7 +11,7 @@ block board
             tbody
                 - for(var i in mailChannels) {
                 -   var trClass;
-                -   if(parseInt(mailChannels[i].score) <= 0){
+                -   if(parseInt(mailChannels[i].score) < 0){
                 -       trClass = 'error';
                 -   } else {
                 -       trClass = '';

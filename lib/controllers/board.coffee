@@ -107,6 +107,8 @@ class sc.mailtempedit extends scbase
                 }).reply (reply)->
                 reply.data = {} if func.empty reply.data
                 reply.data.webpowerid = '' if func.empty(reply.data.webpowerid)
+                reply.data.desc = '' if func.empty(reply.data.desc)
+                reply.data.title = '' if func.empty(reply.data.title)
                 data =
                     mailTemplate: reply.data
                     boardTitle: boardTitle
