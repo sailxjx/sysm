@@ -9,6 +9,8 @@ exports.authCheck = (req, res, callback)->
         callback 'username or cookieverify not exist', null
     else
         rc.hgetall "user:#{username}", (err, replys)->
+            if func.empty replys
+                err = 'user not exist'
             if err?
                 console.log err
                 callback err, null
