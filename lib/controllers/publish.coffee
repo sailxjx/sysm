@@ -5,8 +5,8 @@ rc = db.loadRedis 'redisPub'
 module.exports =
 class publish extends controller
     render: ()->
-        this.data.title = 'Publish Platform'
-        this.loadPubConfs()
+        @res.data.title = 'Publish Platform'
+        @loadPubConfs()
     loadPubConfs: ()->
         _this = this
         d = new Date()
@@ -28,4 +28,4 @@ class publish extends controller
                 _this.data.projects = projects
                 _this.data.targets = targets
                 _this.data.logList = logList
-                _this.res.render 'publish', _this.data
+                _this.res.render 'publish', _this.res.data

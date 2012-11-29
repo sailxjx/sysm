@@ -8,9 +8,9 @@ verFile = __dirname + '/../../var/version'
 module.exports =
 class ops extends controller
     render: () =>
-        @data.title = 'Ops'
-        @data.version = {}
-        @data.version.sysm = @getVersion()
+        @res.data.title = 'Ops'
+        @res.data.version = {}
+        @res.data.version.sysm = @getVersion()
         @getSysdVersion()
     getVersion: ->
         try
@@ -22,5 +22,5 @@ class ops extends controller
         _this = this
         oReqmq = new reqmq()
         oReqmq.send('getNightlyVersion').reply (reply)->
-            _this.data.version.sysd = reply.data
-            _this.res.render 'ops', _this.data
+            _this.res.data.version.sysd = reply.data
+            _this.res.render 'ops', _this.res.data

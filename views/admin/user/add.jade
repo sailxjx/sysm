@@ -16,6 +16,12 @@ block content
             div.controls
                 input#inputPassword(type="password", placeholder="Password", name="user[pwdrepeat]", required)
         div.control-group
+            label.control-label(for="selectRole") Role
+            div.controls
+                select#selectRole.chzn-select(name="user[role]")
+                    option(value="admin") admin
+                    option(value="user") user
+        div.control-group
             div.controls
                 button.btn(type="submit") Sign In
                 span#subTip.help-inline

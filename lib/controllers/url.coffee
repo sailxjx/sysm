@@ -8,7 +8,7 @@ class url extends controller
         surl = this.req.params.surl
         if !surl
             # render the url shorter page
-            this.res.render 'url', this.data
+            @res.render 'url', @res.data
         else
             # redirect to correct url
-            this.res.send 'error'
+            @res.send 'error'

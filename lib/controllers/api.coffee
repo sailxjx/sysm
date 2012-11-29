@@ -43,10 +43,12 @@ class api extends controller
             @errReply 'error', 'password error'
             return false
         salt = func.genSalt()
+        role = if user.role == null or typeof user.role == "undefined" then null else user.role
         userData =
             name: user.name
             pwd: func.genPwd user.pwd, salt
             salt: salt
+            role: user.role
         _this = this
         rc.hmset "user:#{userData.name}", userData, (err, replys)->
             console.log err if err?

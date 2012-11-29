@@ -8,3 +8,6 @@ $('#reg-form').ajaxForm {
             $subTip.removeClass('succ').addClass('err')
         $subTip.html data.msg
 }
+$(".chzn-select").chosen {
+    no_results_text: "No results matched"
+}

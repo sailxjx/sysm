@@ -7,21 +7,21 @@ sc = {} # sub controllers
 module.exports =
 class board extends controller
     render: ->
-        @data.boardName = @req.params.name
-        @data.boardTitle = 'board'
-        if sc[@data.boardName]
-            subCtrl = new sc[@data.boardName] @req, @res
+        @res.data.boardName = @req.params.name
+        @res.data.boardTitle = 'board'
+        if sc[@res.data.boardName]
+            subCtrl = new sc[@res.data.boardName] @req, @res
             subCtrl.render this.loadBoard
         else
             this.loadBoard()
     loadBoard: (data)=>
         for i of data
-            @data[i] = data[i]
+            @res.data[i] = data[i]
         try
-            @res.render "board/#{@data.boardName}", @data
+            @res.render "board/#{@res.data.boardName}", @res.data
         catch e
             console.log e
-            @res.send "sorry: called board [ board/#{@data.boardName} ] not found"
+            @res.send "sorry: called board [ board/#{@res.data.boardName} ] not found"
 
 class scbase
     constructor: (req, res)->

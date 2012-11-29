@@ -10,4 +10,4 @@ class user extends admin
         else
             this[action]()
     add: ()->
-        @res.render 'admin/user/add', @data
+        @res.render 'admin/user/add', @res.data

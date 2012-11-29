@@ -1,3 +1,9 @@
 div.navbar.navbar-inverse.navbar-fixed-top
-    div.container
+    div.container.nav-container
         a.brand(href="/") System Backyard
+        - if(typeof user != "undefined"){
+        div.nav-profile
+            a(href='#')
+                img.nav-avatar(src="http://i4.51fanli.net/images/userface/image_6.jpg")
+                | #{user.name}
+        - }
