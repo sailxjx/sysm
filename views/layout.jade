@@ -11,8 +11,11 @@ html(lang="en")
   body
     include navbar
     block content
+    div.msg-block
+        span.msg-line Hello World
     script(src='/libjs/jquery-1.8.2.min.js')
     script(src='/libjs/bootstrap-collapse.js')
     script(src="/libjs/chosen.jquery.js")
+    script(src="/js/common.js")
     block script
     include footer

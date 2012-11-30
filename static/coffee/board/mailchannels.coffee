@@ -19,14 +19,9 @@ $('.mc-ctrl').click (e)->
         dataType: 'json',
         method: 'get',
         success: (data)->
-            $msgline = $('.msgline')
+            msgShow data.msg, data.status
             if data.status == 1
-                $msgline.html(data.msg).removeClass('text-error').addClass 'text-success'
                 boardReload {
                     board: 'mailchannels'
                 }
-            else
-                $msgline.html(data.msg).removeClass('text-success').addClass 'text-error'
-            $msgline.fadeIn 200, ->
-                $msgline.fadeOut 3000
     }
