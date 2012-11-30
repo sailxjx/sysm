@@ -11,7 +11,7 @@ app = express()
 app.set 'port', func.getConf 'port'
 app.set 'views', __dirname + '/views'
 app.set 'view engine', 'jade'
-app.use express.logger 'dev',
+app.use express.logger 'dev'
 app.use express.bodyParser()
 app.use express.favicon()
 app.use express.methodOverride()
