@@ -31,12 +31,13 @@ step3() {
     echo "step3: start app"
     export NODE_PATH=$BASEDIR
     export NODE_ENV=$NODE_ENV
-    export LD_LIBRARY_PATH=/usr/local/lib
+    export LD_LIBRARY_PATH=/usr/local/lib:$ZMQ_LIB_PATH
     coffee $BASEDIR/app
 }
 
 PATH=$PATH:/usr/bin:/usr/local/bin
 BASEDIR=$(dirname $(getRealDir $0))
+ZMQ_LIB_PATH=/usr/local/zeromq/lib
 NODE_ENV="dev"
 
 case "$1" in

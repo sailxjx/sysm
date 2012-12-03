@@ -8,6 +8,7 @@ ACTION_FILE="$BASEDIR/contrib/cron/action"
 VERSION_FILE="$BASEDIR/var/version"
 PID_FILE="$BASEDIR/var/sysm.pid"
 LOG_FILE="$BASEDIR/var/sysm.log"
+ZMQ_LIB_PATH=/usr/local/zeromq/lib
 
 START_TIME=$(date +%Y.%-m.%-d_%T)
 echo "start time: ${START_TIME}"
@@ -34,7 +35,7 @@ tryRestart() {
     echo "export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && nohup coffee $BASEDIR/app >> $LOG_FILE 2>&1 &"
     export NODE_PATH=$BASEDIR
     export NODE_ENV=$NODE_ENV
-    export LD_LIBRARY_PATH=/usr/local/lib
+    export LD_LIBRARY_PATH=/usr/local/lib:$ZMQ_LIB_PATH
     coffee $BASEDIR/app >> $LOG_FILE 2>&1 &
     if [[ $? == 0 ]]; then
         echo $! > $PID_FILE
