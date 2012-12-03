@@ -30,15 +30,15 @@ tryStop() {
 tryRestart() {
     tryStop
     echo "step1: compile all coffee scripts to js from static to public"
-    coffee -o $BASEDIR/public/js -c $BASEDIR/static/coffee
+    $coffee -o $BASEDIR/public/js -c $BASEDIR/static/coffee
     echo "step2: compile all scss files to css from static to public"
-    scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
+    $scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
     echo "step3: start app"
     echo "export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && nohup coffee $BASEDIR/app >> $LOG_FILE 2>&1 &"
     export NODE_PATH=$BASEDIR
     export NODE_ENV=$NODE_ENV
     export LD_LIBRARY_PATH=/usr/local/lib:$ZMQ_LIB_PATH
-    coffee $BASEDIR/app >> $LOG_FILE 2>&1 &
+    $coffee $BASEDIR/app >> $LOG_FILE 2>&1 &
     if [[ $? == 0 ]]; then
         echo $! > $PID_FILE
         date +%Y.%-m.%-d_%T > $VERSION_FILE
@@ -58,15 +58,15 @@ watchPid() {
             else
                 echo 'node process has exited, try restart'
                 echo "step1: compile all coffee scripts to js from static to public"
-                coffee -o $BASEDIR/public/js -c $BASEDIR/static/coffee
+                $coffee -o $BASEDIR/public/js -c $BASEDIR/static/coffee
                 echo "step2: compile all scss files to css from static to public"
-                scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
+                $scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
                 echo "step3: start app"
                 echo "export NODE_PATH=$BASEDIR && export NODE_ENV=$NODE_ENV && nohup coffee $BASEDIR/app >> $LOG_FILE 2>&1 &"
                 export NODE_PATH=$BASEDIR
                 export NODE_ENV=$NODE_ENV
                 export LD_LIBRARY_PATH=/usr/local/lib
-                coffee $BASEDIR/app >> $LOG_FILE 2>&1 &
+                $coffee $BASEDIR/app >> $LOG_FILE 2>&1 &
                 if [[ $? == 0 ]]; then
                     echo $! > $PID_FILE
                     return 0

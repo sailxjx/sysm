@@ -19,12 +19,12 @@ getRealDir() {
 
 step1() {
     echo "step1: compile all coffee scripts to js from static to public"
-    coffee -o $BASEDIR/public/js -c $BASEDIR/static/coffee
+    $coffee -o $BASEDIR/public/js -c $BASEDIR/static/coffee
 }
 
 step2() {
     echo "step2: compile all scss files to css from static to public"
-    scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
+    $scss --update -t compressed $BASEDIR/static/scss:$BASEDIR/public/css
 }
 
 step3() {
@@ -32,7 +32,7 @@ step3() {
     export NODE_PATH=$BASEDIR
     export NODE_ENV=$NODE_ENV
     export LD_LIBRARY_PATH=/usr/local/lib:$ZMQ_LIB_PATH
-    coffee $BASEDIR/app
+    $coffee $BASEDIR/app
 }
 
 PATH=$PATH:/usr/bin:/usr/local/bin
