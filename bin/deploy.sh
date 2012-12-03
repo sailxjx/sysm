@@ -39,6 +39,8 @@ PATH=$PATH:/usr/bin:/usr/local/bin
 BASEDIR=$(dirname $(getRealDir $0))
 ZMQ_LIB_PATH=/usr/local/zeromq/lib
 NODE_ENV="dev"
+coffee=/usr/local/node/bin/coffee
+scss=/usr/bin/scss
 
 case "$1" in
     --help)

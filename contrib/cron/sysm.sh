@@ -9,6 +9,8 @@ VERSION_FILE="$BASEDIR/var/version"
 PID_FILE="$BASEDIR/var/sysm.pid"
 LOG_FILE="$BASEDIR/var/sysm.log"
 ZMQ_LIB_PATH=/usr/local/zeromq/lib
+coffee=/usr/local/node/bin/coffee
+scss=/usr/bin/scss
 
 START_TIME=$(date +%Y.%-m.%-d_%T)
 echo "start time: ${START_TIME}"
