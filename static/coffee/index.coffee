@@ -25,9 +25,7 @@ boardHover = ->
             $this.removeClass 'board-hover'
 
 getBoardUrl = (name)->
-    d = new Date()
-    t = d.getTime()
-    "/board/#{name}?t=" + t
+    addTimeStamp("/board/#{name}")
 
 popen = (url, callback)->
     $('#popback').show()
@@ -36,7 +34,7 @@ popen = (url, callback)->
             'width': '90%',
             'margin-left': '-45%'
         }, 300, ()->
-            $(this).load url, ()->
+            $(this).load addTimeStamp(url), ()->
                 if callback?
                     callback()
 

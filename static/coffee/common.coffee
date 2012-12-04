@@ -27,3 +27,12 @@ this.msgShow = (msg, status)->
             'margin-left': 0
         }
         ), 3000
+
+this.addTimeStamp = (url)->
+    d = new Date()
+    t = d.getTime()
+    if url.search(/\?/) == -1
+        url += '?t='+t
+    else
+        url += '&t='+t
+    url   
