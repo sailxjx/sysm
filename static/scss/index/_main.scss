@@ -49,6 +49,7 @@
     padding-top: 65px;
     display: none;
     background: $c_white;
+    overflow-y: auto;
     .title{
         @include gradient(#FAFAFA, #EAEAEA);
         padding: 10px;
@@ -56,7 +57,7 @@
         @include shadow;
     }
     .bcon {
-        margin: 5px;        
+        margin: 5px 0 65px 0;
     }
 }
 .table th, .table td{
