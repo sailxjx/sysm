@@ -1,4 +1,4 @@
-$('#mailTempFrom').ajaxForm {
+$('#mailTempForm').ajaxForm {
     dataType: 'json',
     method: 'post'
     success: (data)->

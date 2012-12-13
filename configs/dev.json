@@ -27,7 +27,7 @@
             "name": "mailsum"
         },        
         {
-            "name": "mailtemplates"
+            "name": "smstemplates"
         },
         {
             "name": "heartbeatconfigs"

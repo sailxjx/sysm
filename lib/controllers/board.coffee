@@ -83,8 +83,6 @@ class sc.mailtemplates extends scbase
     render: (callback)->
         oReqmq = new reqmq()
         oReqmq.send('getMailTempSum').reply (reply)->
-            for i in reply.data
-                i.utime = func.tsToDate i.utime
             data = 
                 mailTemplates: reply.data
                 boardTitle: 'Mail Templates'
@@ -123,3 +121,34 @@ class sc.heartbeatconfigs extends scbase
                 boardTitle: 'Heartbeat Configs'
                 hbConfigs: reply.data
             callback data
+
+class sc.smstemplates extends scbase
+    render: (callback)->
+        oReqmq = new reqmq()
+        oReqmq.send('getSmsTempSum').reply (reply)->
+            data = 
+                boardTitle: 'Sms Templates'
+                smsTemplates: reply.data
+            callback data
+
+class sc.smstempedit extends scbase
+    render: (callback)->
+        smsname = @req.query.smsname
+        boardTitle = 'Sms Template Editor'
+        if func.empty smsname
+            data =
+                smsTemplate: null
+                boardTitle: boardTitle
+                boardName: 'smstempadd'
+            callback data
+        else
+            oReqmq = new reqmq()
+            oReqmq.send('getSmsTemp', {
+                name: smsname
+                }).reply (reply)->
+                reply.data = {} if func.empty reply.data
+                reply.data.desc = '' if func.empty reply.data.desc
+                data =
+                    smsTemplate: reply.data
+                    boardTitle: boardTitle
+                callback data

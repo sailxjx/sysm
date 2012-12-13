@@ -1,0 +1,21 @@
+extends ../board
+block board
+    form#smsTempForm.form-horizontal(method="post", action="/api/post/smstempedit")
+        div.control-group
+            label.control-label(for="smsTempName") Name
+            div.controls
+                input#smsTempName(type="text", placeholder="Name", value="#{smsTemplate.name}")
+        div.control-group
+            label.control-label(for="smsTempDesc") Desc
+            div.controls
+                input#smsTempDesc(type="text", placeholder="Desc", value="#{smsTemplate.desc}")
+        div.control-group
+            label.control-label(for="smsTempCon") Content
+            div.controls
+                textarea#smsTempCon(cols="80", rows="5") #{smsTemplate.temp}
+        input#smsEditAction(type="hidden", name="action", value="edit")
+        div.control-group
+            div.controls.btn-group
+                button.btn.sms-temp-edit(type="submit") Submit
+                button.btn.btn-danger.sms-temp-delete Delete
+    script(src="/js/board/smseditor.js")

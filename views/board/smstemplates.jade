@@ -1,0 +1,22 @@
+extends ../board
+block board
+    div.mail-queues
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th Desc
+                    th Control
+            tbody
+                - for(var i in smsTemplates){
+                tr
+                    td #{smsTemplates[i].name}
+                    td #{smsTemplates[i].desc}
+                    td
+                        button.btn.btn-small.boardpopen(target-url="/board/smstempedit?smsname=#{smsTemplates[i].name}") Edit
+                - }
+                tr
+                    td
+                        button.btn.btn-small Add New One
+                    td
+                    td
