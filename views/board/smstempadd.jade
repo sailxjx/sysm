@@ -4,18 +4,17 @@ block board
         div.control-group
             label.control-label(for="smsTempName") Name
             div.controls
-                input#smsTempName(type="text", placeholder="Name", name="name", value="#{smsTemplate.name}", readonly)
+                input#smsTempName(type="text", placeholder="Name", name="name")
         div.control-group
             label.control-label(for="smsTempDesc") Desc
             div.controls
-                input#smsTempDesc(type="text", placeholder="Desc", name="desc", value="#{smsTemplate.desc}")
+                input#smsTempDesc(type="text", placeholder="Desc", name="desc")
         div.control-group
             label.control-label(for="smsTempCon") Content
             div.controls
-                textarea#smsTempCon(cols="80", rows="5", name="temp") #{smsTemplate.temp}
-        input#smsEditAction(type="hidden", name="action", value="edit")
+                textarea#smsTempCon(cols="80", rows="5", name="temp")
+        input#smsEditAction(type="hidden", name="action", value="add")
         div.control-group
             div.controls.btn-group
-                button.btn.sms-temp-edit(type="submit") Submit
-                button.btn.btn-danger.sms-temp-delete Delete
+                button.btn.sms-temp-edit(type="submit") Add
     script(src="/js/board/smseditor.js")

@@ -56,7 +56,7 @@ class api extends controller
                 _this.errReply replys, 'reg fail'
             else
                 _this.succReply replys, 'reg succ'
-    mailtempedit: ()->
+    mailtempedit: ->
         method = @req.params.method
         _this = this
         if method != 'post'
@@ -66,8 +66,17 @@ class api extends controller
         oReqmq = new reqmq()
         oReqmq.send('setMailTemp', @req.body).reply (reply)->
             _this.res.send reply
-    mailchanneledit: ()->
+    mailchanneledit: ->
         _this = this
         oReqmq = new reqmq()
         oReqmq.send('setMailService', @req.query).reply (reply)->
+            _this.res.send reply
+    smstempedit: ->
+        method  = @req.params.method
+        _this = this
+        if method != 'post'
+            _this.errReply @req.params, 'api method error!'
+        if func.empty @req.body.name
+            _this.errReply @req.body, 'sms name should not be empty!'
+        reqmq.getIns().send('setSmsTemp', @req.body).reply (reply)->
             _this.res.send reply

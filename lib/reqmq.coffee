@@ -4,6 +4,8 @@ dsn = func.getConf('zmqReq').dsn
 
 module.exports = 
 class reqmq
+    @getIns: ->
+        new reqmq()
     getSock: ->
         if @oSock == undefined
             @oSock = zmq.socket 'req'
