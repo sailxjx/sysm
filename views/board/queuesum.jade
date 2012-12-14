@@ -1,0 +1,17 @@
+extends ../board
+block board
+    div.mail-queues
+        table.table.table-striped
+            thead
+                tr
+                    th Queue
+                    th Mail
+                    th Sms
+            tbody
+                - for(var i in queueSum.queues){
+                -   var queue = queueSum.queues[i];
+                tr
+                    td #{queue}
+                    td.orange #{queueSum.mail[queue]}
+                    td.orange #{queueSum.sms[queue]}
+                - }

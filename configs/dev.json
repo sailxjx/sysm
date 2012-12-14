@@ -24,7 +24,7 @@
             "name": "mailchannels"
         },
         {
-            "name": "mailsum"
+            "name": "queuesum"
         },        
         {
             "name": "smstemplates"

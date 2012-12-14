@@ -55,13 +55,13 @@ class sc.jobsum extends scbase
             callback data
 
 # get mail summary
-class sc.mailsum extends scbase
+class sc.queuesum extends scbase
     render: (callback)->
         oReqmq = new reqmq()
-        oReqmq.send('getMailSum').reply (reply)->
+        oReqmq.send('getQueueSum').reply (reply)->
             data = 
-                mailSum: reply.data
-                boardTitle: 'Mail Summary'
+                queueSum: reply.data
+                boardTitle: 'Queue Summary'
             callback data
 
 # get mail channels
