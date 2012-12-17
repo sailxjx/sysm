@@ -24,11 +24,17 @@
             "name": "mailchannels"
         },
         {
-            "name": "queuesum"
-        },        
+            "name": "smschannels"
+        },
         {
             "name": "smstemplates"
         },
+        {
+            "name": "mailtemplates"
+        },
+        {
+            "name": "queuesum"
+        },        
         {
             "name": "heartbeatconfigs"
         }

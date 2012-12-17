@@ -1,0 +1,28 @@
+extends ../board
+block board
+    div.mail-channels
+        table.table.table-striped
+            thead
+                tr
+                    th Channel
+                    th Rank
+                    th Desc
+                    th Pool
+                    th Command
+            tbody
+                - for(var i in smsChannels) {
+                tr(class="#{smsChannels[i].cName}")
+                    td #{i}
+                    td #{smsChannels[i].score}
+                    td #{smsChannels[i].desc}
+                    td #{smsChannels[i].pool}
+                    td
+                        button.btn.btn-small.boardpopen(target-url="/board/smschanneledit?name=#{i}") Edit
+                - }
+                tr
+                    td
+                    td
+                    td
+                    td
+                    td
+                        button.btn.btn-small.boardpopen(target-url="/board/smschanneledit") Add

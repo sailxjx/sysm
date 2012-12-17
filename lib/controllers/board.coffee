@@ -152,3 +152,42 @@ class sc.smstempedit extends scbase
                     smsTemplate: reply.data
                     boardTitle: boardTitle
                 callback data
+
+# get sms channels
+class sc.smschannels extends scbase
+    render: (callback)->
+        oReqmq = new reqmq()
+        oReqmq.send('getSmsChannels').reply (reply)->
+            smsChannels = {}
+            if !func.empty(reply.data)
+                for i of reply.data
+                    smsChannels[i] = JSON.parse reply.data[i]
+                    if func.empty(smsChannels[i].score) || smsChannels[i].score < 0
+                        smsChannels[i].cName = 'error'
+                    else
+                        smsChannels[i].cName = ''
+            data = 
+                smsChannels: smsChannels
+                boardTitle: 'Sms Channels'
+            callback data
+
+class sc.smschanneledit extends scbase
+    render: (callback)->
+        smsname = @req.query.name
+        boardTitle = 'Sms Channel Editor'
+        if func.empty smsname
+            data =
+                smsChannel: null
+                boardTitle: boardTitle
+                boardName: 'smschanneladd'
+            callback data
+        else
+            oReqmq = new reqmq()
+            oReqmq.send('getSmsChannel', {
+                name: smsname
+                }).reply (reply)->
+                reply.data = {} if func.empty reply.data
+                data =
+                    smsChannel: reply.data
+                    boardTitle: boardTitle
+                callback data

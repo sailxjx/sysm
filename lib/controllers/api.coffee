@@ -80,3 +80,12 @@ class api extends controller
             _this.errReply @req.body, 'sms name should not be empty!'
         reqmq.getIns().send('setSmsTemp', @req.body).reply (reply)->
             _this.res.send reply
+    smschanneledit: ->
+        method  = @req.params.method
+        _this = this
+        if method != 'post'
+            _this.errReply @req.params, 'api method error!'
+        if func.empty @req.body.name
+            _this.errReply @req.body, 'sms channel name should not be empty!'
+        reqmq.getIns().send('setSmsChannel', @req.body).reply (reply)->
+            _this.res.send reply

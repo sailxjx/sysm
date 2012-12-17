@@ -1,0 +1,30 @@
+extends ../board
+block board
+    form#smsChannelForm.form-horizontal(method="post", action="/api/post/smschanneledit")
+        div.control-group
+            label.control-label(for="scName") Name
+            div.controls
+                input#scRank(type="text", placeholder="Name", name="name")
+        div.control-group
+            label.control-label(for="scRank") Rank
+            div.controls
+                input#scRank(type="text", placeholder="Rank", name="score")
+        div.control-group
+            label.control-label(for="scDesc") Desc
+            div.controls
+                input#scDesc(type="text", placeholder="Desc", name="desc")
+        div.control-group
+            label.control-label(for="scPool") Pool
+            div.controls
+                select#scPool.chzn-select.sms-chzn-select(name="pool")
+                    option(value="high", selected) high
+                    option(value="low") low
+        div.control-group
+            label.control-label(for="scUrl") UrlTemplate
+            div.controls
+                textarea#scUrl.span4(cols="80", rows="5", name="url")
+        input#scAction(type="hidden", name="action", value="add")
+        div.control-group
+            div.controls.btn-group
+                button.btn.sms-channel-edit(type="submit") Add
+    script(src="/js/board/smschanneledit.js")
