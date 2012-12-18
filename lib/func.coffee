@@ -25,7 +25,7 @@ class func
                 eCtrl.before()
         catch e
             console.log e
-            throw "error: called controller [ #{file} ] not found! "        
+            throw "error: called controller [ #{ctrl} ] not found! "        
     @getConf: (key)->
         configs = @loadConf()
         configs[key]
