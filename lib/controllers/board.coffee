@@ -175,11 +175,17 @@ class sc.smschanneledit extends scbase
     render: (callback)->
         smsname = @req.query.name
         boardTitle = 'Sms Channel Editor'
+        pools = {
+            'high': false
+            'low': false
+            'retry': false
+        }
         if func.empty smsname
             data =
                 smsChannel: null
                 boardTitle: boardTitle
                 boardName: 'smschanneladd'
+                pools: pools
             callback data
         else
             oReqmq = new reqmq()
@@ -187,7 +193,18 @@ class sc.smschanneledit extends scbase
                 name: smsname
                 }).reply (reply)->
                 reply.data = {} if func.empty reply.data
+                if !func.empty(reply.data.pool)
+                    if typeof(reply.data.pool) == 'String'
+                        aPool = reply.data.pool.split ','
+                    else
+                        aPool = reply.data.pool
+                else
+                    aPool = []
+                for i of pools
+                    if aPool.indexOf(i) >= 0
+                        pools[i] = true
                 data =
                     smsChannel: reply.data
                     boardTitle: boardTitle
+                    pools: pools
                 callback data

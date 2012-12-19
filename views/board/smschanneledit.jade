@@ -16,14 +16,10 @@ block board
         div.control-group
             label.control-label(for="scPool") Pool
             div.controls
-                select#scPool.chzn-select.sms-chzn-select(name="pool")
-                    - if(smsChannel.pool == 'high') {
-                    option(value="high", selected) high
-                    option(value="low") low
-                    - }else{
-                    option(value="high") high
-                    option(value="low", selected) low
-                    - }
+                - for(var i in pools) {
+                label.checkbox.inline #{i}
+                    input(type="checkbox", value="#{i}", name="pool", checked=pools[i])
+                - }
         div.control-group
             label.control-label(for="scUrl") UrlTemplate
             div.controls
